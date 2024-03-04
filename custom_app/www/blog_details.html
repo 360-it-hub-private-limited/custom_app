@@ -21,6 +21,14 @@
   <link href="assets/custom_app/360ithub/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="assets/custom_app/360ithub/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
   <link href="assets/custom_app/360ithub/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-KPB1JLY2EW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-KPB1JLY2EW');
+</script>
   <style>
     /*--------------------------------------------------------------
 # Blog Details Page
@@ -714,6 +722,7 @@
           <form id="blogcomment">
             <input type="hidden" value="{{ name }}" name="name">
             <textarea name="comment_text" placeholder="Add your comment" style="width: 100%; height: 100px; padding: 10px; font-size: 14px;"></textarea>
+            <div class="ql-editor ql-blank" data-gramm="false" contenteditable="true" data-placeholder="Type a reply / comment"></div>
             <button type="submit" name="send" id="sendBtn" class="btn btn-blue">
                 Submit
             </button>
