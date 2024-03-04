@@ -14,26 +14,36 @@
 <link href="assets/custom_app/360ithub/css/flaticon.css" rel="stylesheet" type="text/css" />
 <link href="assets/custom_app/360ithub/css/styles.css" rel="stylesheet" type="text/css" />
 <link href="assets/custom_app/360ithub/css/responsive.css" rel="stylesheet" type="text/css" />
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KPB1JLY2EW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-KPB1JLY2EW');
+</script>
 </head>
 
-<body>
+<body data-current-page="{{ current_page }}">
 <!-- ============ HEADER SECTION START ========== -->
+
 <header>
-<!-- black strip  -->
-<div class="contact-container">
-	<div class="contact-info">
-		<p>Have any question?</p>
-		<a href="tel:+91 95137 77001" class="phone"> <i class="fa fa-phone"></i> +91 95137 77001</a>
-		<a href="mailto:hello@360ithub.com?cc=sales@360ithub.com" class="email"><i class="fa fa-envelope"></i> hello@360ithub.com</a>
-		<a href="#" class="email"><i class="fa fa-skype" aria-hidden="true"></i> 360ithub</a>
+	<!-- black strip  -->
+	<div class="contact-container">
+		<div class="contact-info">
+			<p>Have any question?</p>
+			<a href="tel:+91 95137 77001" class="phone"> <i class="fa fa-phone"></i> +91 95137 77001</a>
+			<a href="mailto:hello@360ithub.com?cc=sales@360ithub.com" class="email"><i class="fa fa-envelope"></i> hello@360ithub.com</a>
+			<a href="#" class="email"><i class="fa fa-skype" aria-hidden="true"></i> 360ithub</a>
+		</div>
+		<div class="social-media-icons">
+			<a href="https://www.facebook.com/360ithub" target="_blank" class="icon-link"><i class="fa fa-facebook"></i></a>
+			<a href="https://www.instagram.com/360ithub/" target="_blank" class="icon-link"><i class="fa fa-instagram"></i></a>
+			<a href="https://twitter.com/360ithub" target="_blank" class="icon-link"><i class="fa fa-twitter"></i></a>
+			<a href="https://www.linkedin.com/company/360ithub" target="_blank" class="icon-link"><i class="fa fa-linkedin"></i></a>
+		</div>
 	</div>
-	<div class="social-media-icons">
-		<a href="https://www.facebook.com/360ithub" target="_blank" class="icon-link"><i class="fa fa-facebook"></i></a>
-		<a href="https://www.instagram.com/360ithub/" target="_blank" class="icon-link"><i class="fa fa-instagram"></i></a>
-		<a href="https://twitter.com/360ithub" target="_blank" class="icon-link"><i class="fa fa-twitter"></i></a>
-		<a href="https://www.linkedin.com/company/360ithub" target="_blank" class="icon-link"><i class="fa fa-linkedin"></i></a>
-	</div>
-</div>
 	<nav class="navbar navbar-expand-md" style="background: #fff;">
 		<div class="container">
 			<!-- Brand -->
@@ -48,17 +58,17 @@
 			<!-- Navbar links -->
 			<div class="collapse navbar-collapse" id="collapsibleNavbar">
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item"><a class="nav-link active" href="index">Home</a></li>
+					<li class="nav-item"><a class="nav-link" href="index" id="home">Home</a></li>
 					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="about" data-toggle="dropdown">
 							About
 						</a>
 						<div class="dropdown-menu">
-							<a class="dropdown-item" href="about"><img src="assets/custom_app/360ithub/images/Team-menu.svg"
+							<a class="dropdown-item" href="about" id="about1"><img src="assets/custom_app/360ithub/images/Team-menu.svg"
 									alt="" /> Our Team</a>
-							<a class="dropdown-item" href="partners"><img src="assets/custom_app/360ithub/images/Partners-menu (2).svg"
+							<a class="dropdown-item" href="partners" id="partners"><img src="assets/custom_app/360ithub/images/Partners-menu (2).svg"
 									alt="" /> Our Partners</a>
-							<a class="dropdown-item" href="talent"><img src="assets/custom_app/360ithub/images/talentfromus-menu.svg"
+							<a class="dropdown-item" href="talent" id="talent"><img src="assets/custom_app/360ithub/images/talentfromus-menu.svg"
 									alt="" /> Hire a Talent From US</a>
 							<!-- <a class="dropdown-item" href="http://192.168.1.116:8021/job_application/new"><img src="assets/custom_app/360ithub/images/talentfromus-menu.svg"
 								alt="" /> Careers</a> -->
@@ -67,25 +77,32 @@
 						</div>
 					</li>
 					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="service" data-toggle="dropdown">
 							Services
 						</a>
 						<div class="dropdown-menu">
-							<a class="dropdown-item" href="erp-implementation"><img src="assets/custom_app/360ithub/images/menu1.svg"
-									alt="" /> ERP Implementation</a>
-							<a class="dropdown-item" href="mobile-app-development"><img src="assets/custom_app/360ithub/images/menu2.svg"
-									alt="" /> Mobile App Development</a>
-							<a class="dropdown-item" href="website-development"><img src="assets/custom_app/360ithub/images/menu3.svg"
-									alt="" /> Website Development</a>
-							<a class="dropdown-item" href="E-commerce"><img src="assets/custom_app/360ithub/images/menu4.svg"
-										alt="" /> E-Commerce Solutions</a>
-							<a class="dropdown-item nobdr" href="ui-ux-solutions"><img src="assets/custom_app/360ithub/images/menu5.svg"
-										alt="" /> UI/UX Solutions</a>
+							<a id="erp-link" class="dropdown-item" href="/erp-implementation">
+								<img src="assets/custom_app/360ithub/images/menu1.svg" alt="" /> ERP Implementation
+							</a>
+							<a id="mobile-app-link" class="dropdown-item " href="/mobile-app-development">
+								<img src="assets/custom_app/360ithub/images/menu2.svg" alt="" /> Mobile App Development
+							</a>
+							<a id="website-link" class="dropdown-item" href="/website-development">
+								<img src="assets/custom_app/360ithub/images/menu3.svg" alt="" /> Website Development
+							</a>
+							<a id="ecommerce-link" class="dropdown-item " href="/E-commerce">
+								<img src="assets/custom_app/360ithub/images/menu4.svg" alt="" /> E-Commerce Solutions
+							</a>
+							<a id="ui-ux-link" class="dropdown-item " href="/ui-ux-solutions">
+								<img src="assets/custom_app/360ithub/images/menu5.svg" alt="" /> UI/UX Solutions
+							</a>
 						</div>
+						
+						
 					</li>
 					<!-- <li class="nav-item"><a class="nav-link" href="blogs">Blogs</a></li> -->
-					<li class="nav-item"><a class="nav-link" href="contacts">Contact</a></li>
-					<li class="nav-item"><a class="nav-link" href="/job_listing">Careers</a></li>
+					<li class="nav-item"><a class="nav-link" href="contacts" id="contacts">Contact</a></li>
+					<li class="nav-item"><a class="nav-link" href="/job_listing" id="job_listing">Careers</a></li>
 				</ul>
 			</div>
 			<a class="frappe-brand" href="index">
@@ -189,6 +206,7 @@
 
 
 
+ 
 
 <!-- POPUP script  -->
 <script>
@@ -197,8 +215,69 @@
 		var callbackBtns = document.querySelectorAll('.btn[data-target="#callbackPopup"]');
 		var closeButtons = document.querySelectorAll('.popup .close');
 
+		var currentPage = window.location.pathname;
 
-	// PSCODE STARTS
+        // Define the dropdown items and their corresponding paths
+        var dropdownItems = [
+            { id: 'erp-link', path: '/erp-implementation' },
+            { id: 'mobile-app-link', path: '/mobile-app-development' },
+            { id: 'website-link', path: '/website-development' },
+            { id: 'ecommerce-link', path: '/E-commerce' },
+            { id: 'ui-ux-link', path: '/ui-ux-solutions' },
+        ];
+
+        var aboutDropdownItems = [
+            { id: 'about1', path: '/about' },
+            { id: 'partners', path: '/partners' },
+            { id: 'talent', path: '/talent' }
+        ];
+
+        // Loop through the dropdown items and add the 'active' class to the matching item
+        dropdownItems.forEach(function (item) {
+            var dropdownItem = document.getElementById(item.id);
+            if (dropdownItem && (currentPage === item.path || currentPage.startsWith(item.path))) {
+                dropdownItem.classList.add('active');
+            }
+        });
+
+        aboutDropdownItems.forEach(function (item) {
+            var aboutDropdownItem = document.getElementById(item.id);
+            if (aboutDropdownItem && (currentPage === item.path || currentPage.startsWith(item.path))) {
+                aboutDropdownItem.classList.add('active');
+            }
+        });
+	
+		var serviceDropdownItem = document.getElementById('service');
+		var aboutDropdownItem = document.getElementById('about');
+		var homeactive = document.getElementById('home');
+		var contactactive = document.getElementById('contacts');
+		var careersactive = document.getElementById('job_listing');
+	
+		// Check if the current page is under the 'service' category
+		var isServiceCategory = dropdownItems.some(function (item) {
+			return currentPage === item.path || currentPage.startsWith(item.path);
+		});
+	
+		// Check if the current page is under the 'about' category
+		var isAboutCategory = aboutDropdownItems.some(function (item) {
+			return currentPage === item.path || currentPage.startsWith(item.path);
+		});
+	
+		// Activate the corresponding dropdown based on the current page
+		serviceDropdownItem.classList.toggle('active', isServiceCategory);
+		aboutDropdownItem.classList.toggle('active', isAboutCategory);
+		homeactive.classList.toggle('active', currentPage === '/index' || currentPage === '/');
+		contactactive.classList.toggle('active', currentPage === '/contacts');
+		careersactive.classList.toggle('active', currentPage === '/job_listing');
+
+	// If the current page is the root path ("/"), add the 'active' class to 'service' and 'about'
+	
+
+
+        // Rest of your existing code...
+
+
+		
 
 	// PSCODE ENDS
 
