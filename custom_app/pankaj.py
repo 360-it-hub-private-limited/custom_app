@@ -228,3 +228,16 @@ def task_with_issue_creation(i_id):
     print(issue.subject)
 
     return f"New Task created for Issue {i_id}"
+    
+    
+    
+    
+    
+@frappe.whitelist()
+def share_user_with_customer(project_name, customer_email):
+    # Validate user access or any other necessary checks
+
+    # Assuming you have a 'Shared User' doctype to store shared users
+    frappe.share.add('S Project', project_name, customer_email, read=1)
+
+    return "Document shared with {0} for read access."

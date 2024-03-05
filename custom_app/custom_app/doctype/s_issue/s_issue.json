@@ -58,6 +58,7 @@
    "oldfieldtype": "Link",
    "options": "Customer",
    "print_hide": 1,
+   "read_only": 1,
    "search_index": 1
   },
   {
@@ -75,6 +76,7 @@
    "oldfieldname": "status",
    "oldfieldtype": "Select",
    "options": "Open\nReplied\nOn Hold\nResolved\nClosed",
+   "permlevel": 2,
    "search_index": 1
   },
   {
@@ -83,13 +85,15 @@
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Priority",
-   "options": "Issue Priority"
+   "options": "Issue Priority",
+   "permlevel": 2
   },
   {
    "fieldname": "issue_type",
    "fieldtype": "Link",
    "label": "Issue Type",
-   "options": "Issue Type"
+   "options": "Issue Type",
+   "permlevel": 2
   },
   {
    "collapsible": 1,
@@ -118,7 +122,8 @@
    "fieldname": "user",
    "fieldtype": "Link",
    "label": "User",
-   "options": "User"
+   "options": "User",
+   "read_only": 1
   },
   {
    "default": "0",
@@ -137,7 +142,7 @@
  ],
  "icon": "fa fa-ticket",
  "links": [],
- "modified": "2024-02-12 18:02:43.669696",
+ "modified": "2024-03-05 15:12:18.180079",
  "modified_by": "Administrator",
  "module": "custom_app",
  "name": "S Issue",
@@ -156,7 +161,6 @@
    "write": 1
   }
  ],
- "quick_entry": 1,
  "search_fields": "status,customer,subject",
  "sender_field": "raised_by",
  "sort_field": "modified",
