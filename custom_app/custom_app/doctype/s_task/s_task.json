@@ -1,7 +1,7 @@
 {
  "actions": [],
  "allow_import": 1,
- "autoname": "format:{subject}-{#}",
+ "autoname": "format:TASK-{project}-{#}",
  "creation": "2024-01-29 12:09:37.008698",
  "default_view": "List",
  "doctype": "DocType",
@@ -28,6 +28,8 @@
   "hold_reason",
   "attachment",
   "created_by_user",
+  "task_completed_rating",
+  "rating_details",
   "sb_timeline",
   "exp_start_date",
   "expected_time",
@@ -60,9 +62,7 @@
   "closing_date",
   "column_break_22",
   "department",
-  "company",
-  "lft",
-  "rgt"
+  "company"
  ],
  "fields": [
   {
@@ -132,8 +132,6 @@
    "fieldname": "status",
    "fieldtype": "Select",
    "hidden": 1,
-   "in_list_view": 1,
-   "in_standard_filter": 1,
    "label": "Status",
    "no_copy": 1,
    "oldfieldname": "status",
@@ -143,6 +141,8 @@
   {
    "fieldname": "task_status",
    "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Task Status",
    "options": "New\nAssigned\nIn Development\nIn Testing\nIn Review\nIn UAT\nCompleted\nCancelled\nOn Hold",
    "read_only": 1
@@ -443,30 +443,32 @@
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "lft",
-   "fieldtype": "Int",
-   "hidden": 1,
-   "label": "lft"
-  },
-  {
-   "fieldname": "rgt",
-   "fieldtype": "Int",
-   "hidden": 1,
-   "label": "rgt"
-  },
-  {
    "default": "__user",
    "fieldname": "created_by_user",
    "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Created By (user)",
    "options": "User",
    "read_only": 1
+  },
+  {
+   "fieldname": "task_completed_rating",
+   "fieldtype": "Rating",
+   "label": "Task Completed Rating",
+   "permlevel": 2
+  },
+  {
+   "fieldname": "rating_details",
+   "fieldtype": "Small Text",
+   "label": "Rating Details",
+   "permlevel": 2
   }
  ],
  "icon": "fa fa-check",
  "links": [],
  "max_attachments": 5,
- "modified": "2024-02-07 09:55:32.023751",
+ "modified": "2024-03-19 12:33:35.694518",
  "modified_by": "Administrator",
  "module": "custom_app",
  "name": "S Task",

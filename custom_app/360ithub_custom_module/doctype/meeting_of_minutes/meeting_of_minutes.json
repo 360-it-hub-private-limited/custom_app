@@ -72,7 +72,7 @@
    "fieldname": "project_name",
    "fieldtype": "Link",
    "label": "Project Name",
-   "options": "Project"
+   "options": "S Project"
   },
   {
    "fieldname": "customer",
@@ -160,7 +160,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-02-19 18:36:15.692230",
+ "modified": "2024-03-19 11:50:19.846031",
  "modified_by": "Administrator",
  "module": "360ithub_custom_module",
  "name": "Meeting of Minutes",
