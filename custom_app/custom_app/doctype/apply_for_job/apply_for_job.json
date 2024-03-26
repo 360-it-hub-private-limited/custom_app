@@ -1,7 +1,6 @@
 {
  "actions": [],
- "allow_rename": 1,
- "autoname": "field:name1",
+ "autoname": "autoincrement",
  "creation": "2024-03-26 15:03:36.395195",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -12,6 +11,7 @@
   "column_break_zruh",
   "resume_url",
   "job_role",
+  "resume",
   "section_break_zcsh",
   "description"
  ],
@@ -19,8 +19,7 @@
   {
    "fieldname": "name1",
    "fieldtype": "Data",
-   "label": "Name",
-   "unique": 1
+   "label": "Name"
   },
   {
    "fieldname": "email",
@@ -54,15 +53,20 @@
   {
    "fieldname": "section_break_zcsh",
    "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "resume",
+   "fieldtype": "Attach",
+   "label": "Resume"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-03-26 15:13:27.318703",
+ "modified": "2024-03-26 18:13:18.077228",
  "modified_by": "Administrator",
  "module": "custom_app",
  "name": "Apply For Job",
- "naming_rule": "By fieldname",
+ "naming_rule": "Autoincrement",
  "owner": "Administrator",
  "permissions": [
   {
@@ -74,6 +78,18 @@
    "read": 1,
    "report": 1,
    "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Guest",
    "share": 1,
    "write": 1
   }

@@ -93,25 +93,25 @@
         <form class="application-form" id="apply_for_job" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="name">Name</label>
-                <input type="text" id="name" name="name"  required>
+                <input type="text" id="name" name="name1"  >
             </div>
             <div class="form-group">
                 <label for="name">Job Role</label>
-                <input type="text" id="role" name="role"  required>
+                <input type="text" id="role" name="job_role"  >
             </div>
             <div class="form-group">
                 <label for="phone">Phone</label>
-                <input type="tel" id="phone" name="phone" required>
+                <input type="tel" id="phone" name="mobile_no" >
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" required>
+                <input type="email" id="email" name="email" >
             </div>
-            <!-- <div class="form-group">
+            <div class="form-group">
                 <label for="resume">Choose Resume</label>
                 <input type="file" id="resume" name="resume" accept=".pdf, .doc, .docx" >
                 
-            </div> -->
+            </div>
             <div class="form-group">
                 <label for="resume_url">Resume Url</label>
                 <input type="text" id="resume_url" name="resume_url" >
@@ -119,9 +119,9 @@
             </div>
             <div class="form-group">
                 <label for="cover-letter">Cover Letter</label>
-                <textarea id="cover-letter" name="cover_letter"
+                <textarea id="cover-letter" name="description"
                     placeholder="Write down your biography here. Let the employers know who you are..."
-                    required></textarea>
+                    ></textarea>
             </div>
             <div class="form-group">
                 <!-- <input type="submit" class="btn btn-primary" /> -->
@@ -281,21 +281,47 @@ Apply</button>
     
     
     
-         $(document).ready(function() {
+         /* $(document).ready(function() {
             $("#apply_for_job").submit(function(event) {
                 event.preventDefault(); // Prevent the default form submission behavior
-        
-                // Serialize the form data
-                var formData = $(this).serialize();
-        
+                
+                // Get individual form field values
+                var name = $("#name").val();
+                var role = $("#role").val();
+                var phone = $("#phone").val();
+                var email = $("#email").val();
+                var resumeUrl = $("#resume_url").val();
+                var coverLetter = $("#cover-letter").val();
+                
+                // Get the file input
+                var fileInput = $("#resume")[0].files[0];
+                console.log(fileInput);
+
+                // Create a FormData object to send both form data and files
+                var formData = new FormData();
+                formData.append("name", name);
+                formData.append("role", role);
+                formData.append("phone", phone);
+                formData.append("email", email);
+                formData.append("resume_url", resumeUrl);
+                formData.append("cover_letter", coverLetter);
+                formData.append("file", fileInput);
+                
                 // Send the data to the server-side method using Frappe's REST API
                 frappe.call({
                     method: "custom_app.custom_app.api.apply_for_job",
                     args: {
-                         form_data: formData 
+                        name: name,
+                        role: role,
+                        phone: phone,
+                        email: email,
+                        resume_url: resumeUrl,
+                        cover_letter: coverLetter,
+                        resume: resum
                     },
                     type: "POST",
-                    contentType: "application/x-www-form-urlencoded", // Set the content type
+                    contentType: false, // Set contentType to false when sending individual fields
+                    processData: false, // Set processData to false when sending individual fields
                     callback: function(response) {
                         if (!response.exc) {
                             // Hide error message
@@ -321,8 +347,80 @@ Apply</button>
                     }
                 });
             });
-        });
-        
+        }); */
+                       
+        $('#apply_for_job').submit(e=>{
+            e.preventDefault();
+            makecall();
+            
+
+        })
+        let makecall = async()=>{
+            let formdata = $('#apply_for_job').serializeArray().reduce(
+                (obj,item)=>(obj[item.name]=item.value,obj),{}
+            );
+            let fileInput = $("#resume")[0].files[0];
+            let filedata = new FormData()
+            if(fileInput){
+                filedata.append('file',fileInput);
+            }
+            if(formdata){
+                let res = await $.ajax({
+                    url : '/api/resource/Apply For Job',
+                    type: 'POST',
+                    headers:{
+                        'Content-Type':'application/json',
+                        'X-Frappe-CSRF-Token':frappe.csrf_token
+                    },
+                    data:JSON.stringify(formdata),
+                    success:function(data){
+                        return data
+                    }
+                })
+                console.log(res);
+                if(res.data && fileInput){
+                    let imgres = await fetch('/api/method/upload_file',{
+                        headers:{
+                            
+                            'X-Frappe-CSRF-Token':frappe.csrf_token
+                        },
+                        method: 'POST',
+                        body: filedata
+                    }).then(res=>res.json()).then(
+                        data=>{
+
+                            console.log(data);
+                            if (data.message){
+                                $.ajax({
+                                    url : `/api/resource/Apply For Job/${res.data.name}`,
+                                    type: 'PUT',
+                                    headers:{
+                                        'Content-Type':'application/json',
+                                        'X-Frappe-CSRF-Token':frappe.csrf_token
+                                    },
+                                    data:JSON.stringify({resume:data.message.file_url}),
+                                    success:function(data){
+                                        Swal.fire({
+                                            icon: 'success',
+                                            title: 'Success',
+                                            text: 'Thank you for applying for the job. HR will get back to you!',
+                                        }).then((result) => {
+                                            // Redirect to the home page after user clicks 'OK' in SweetAlert
+                                            if (result.isConfirmed) {
+                                                window.location.href = "/"; // Replace "/" with the actual URL of your home page
+                                            }
+                                        });
+    
+                                        // Reset the form
+                                        $("#apply_for_job")[0].reset();
+                                    }
+                                })
+                            }
+                        }
+                    )
+                }
+            }
+        }
         
      </script>
 {% endblock %}
