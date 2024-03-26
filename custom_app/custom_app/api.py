@@ -293,3 +293,73 @@ def support_ticket(form_data=None, **kwargs):
     except Exception as e:
         frappe.log_error("Error inserting data: " + str(e))
         return "Error inserting data. Please try again. Error: " + str(e)
+
+
+
+
+
+
+
+@frappe.whitelist(allow_guest=True)
+def apply_for_job(form_data=None, **kwargs):
+    try:
+        # Parse the form_data
+        parsed_data = urllib.parse.parse_qs(form_data)
+
+        # Retrieve values more safely using get method with default value
+        # title = parsed_data.get("title", [None])[0]
+        name = parsed_data.get("name", [None])[0]
+        email = parsed_data.get("email", [None])[0]
+        phone_no = parsed_data.get("phone", [None])[0]
+        cover_letter = parsed_data.get("cover_letter", [None])[0]
+        resume_link = parsed_data.get("resume_url", [None])[0]
+        job_role = parsed_data.get("role", [None])[0]
+
+        # Check for required fields
+        if name is None:
+            return "Error: Applicant Name is required."
+
+        # Check for required fields
+        if email is None:
+            return "Error: Email Address is required."
+        # Your existing code for creating Job Applicant document
+        apply_for_job = frappe.new_doc("Apply For Job")
+        # apply_for_job.job_title = title
+        apply_for_job.name1 = name
+        apply_for_job.email = email
+        apply_for_job.mobile_no = phone_no
+        apply_for_job.description = cover_letter
+        apply_for_job.resume_url = resume_link
+        apply_for_job.job_role = job_role
+        apply_for_job.insert()
+
+
+        # if 'file' not in frappe.request.files:
+        #     return frappe.throw("No file attached to the request")
+
+        # uploaded_file = frappe.request.files['file']
+        
+        # # Save the file using Frappe's save_file function
+        # file_doc = save_file(uploaded_file.name, uploaded_file.content)
+        if "resume" in frappe.request.files:
+            uploaded_file = frappe.request.files.get("resume")
+
+            # Save the file
+            file_doc = save_file(
+                file_name=uploaded_file.name,
+                content=uploaded_file.content,
+                is_private=0,  # Set to 1 if the file should be private
+                folder=job_applicant.get("folder"),  # Set the target folder
+            )
+
+            # Attach the file to the job applicant document
+            job_applicant.resume_attachment = file_doc.file_url
+            job_applicant.save()
+
+            return "Data inserted successfully with file upload."
+
+        return "Data inserted successfully without file upload."
+
+    except Exception as e:
+        frappe.log_error("Error inserting data: " + str(e))
+        return "Error inserting data. Please try again. Error: " + str(e)
