@@ -16,6 +16,7 @@
   "is_group",
   "is_template",
   "users",
+  "modules",
   "column_break0",
   "share_to_project_user",
   "status",
@@ -463,12 +464,19 @@
    "fieldtype": "Small Text",
    "label": "Rating Details",
    "permlevel": 2
+  },
+  {
+   "fieldname": "modules",
+   "fieldtype": "Select",
+   "label": "Modules",
+   "options": "\nAccounts\nCRM\nHR\nOperations\nPermissions\nAPI\nOthers",
+   "reqd": 1
   }
  ],
  "icon": "fa fa-check",
  "links": [],
  "max_attachments": 5,
- "modified": "2024-03-19 12:33:35.694518",
+ "modified": "2024-04-16 13:22:52.895496",
  "modified_by": "Administrator",
  "module": "custom_app",
  "name": "S Task",

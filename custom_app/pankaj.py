@@ -220,6 +220,7 @@ def task_with_issue_creation(i_id):
         "issue": issue.name,
         "project": issue.project,
         "description": issue.description,
+        "modules": issue.modules,
         # "custom_task_type": issue.issue_type,
     })
 
@@ -241,3 +242,11 @@ def share_user_with_customer(project_name, customer_email):
     frappe.share.add('S Project', project_name, customer_email, read=1)
 
     return "Document shared with {0} for read access."
+    
+    
+    
+    
+@frappe.whitelist()
+def get_tasks_for_project_status(project_id):
+    tasks = frappe.get_all("S Task", filters={"project": project_id}, fields=["task_status"])
+    return tasks

@@ -21,6 +21,7 @@
   "priority",
   "issue_type",
   "created_on_website",
+  "modules",
   "sb_details",
   "description"
  ],
@@ -138,11 +139,18 @@
    "fieldtype": "Data",
    "label": "Project Name",
    "read_only": 1
+  },
+  {
+   "fieldname": "modules",
+   "fieldtype": "Select",
+   "label": "Modules",
+   "options": "\nAccounts\nCRM\nHR\nOperations\nPermissions\nAPI\nOthers",
+   "permlevel": 2
   }
  ],
  "icon": "fa fa-ticket",
  "links": [],
- "modified": "2024-03-05 15:12:18.180079",
+ "modified": "2024-04-17 10:06:32.961893",
  "modified_by": "Administrator",
  "module": "custom_app",
  "name": "S Issue",

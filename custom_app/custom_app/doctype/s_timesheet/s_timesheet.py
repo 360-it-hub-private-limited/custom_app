@@ -180,7 +180,7 @@ class STimesheet(Document):
 	def validate_time_logs(self):
 		for data in self.get("time_logs"):
 			self.set_to_time(data)
-			self.validate_overlap(data)
+			# self.validate_overlap(data)
 			self.set_project(data)
 			self.validate_project(data)
 

@@ -1,5 +1,7 @@
 {
  "actions": [],
+ "allow_auto_repeat": 1,
+ "allow_import": 1,
  "autoname": "autoincrement",
  "creation": "2024-03-26 15:03:36.395195",
  "doctype": "DocType",
@@ -62,7 +64,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-03-26 18:13:18.077228",
+ "modified": "2024-04-18 19:51:14.953219",
  "modified_by": "Administrator",
  "module": "custom_app",
  "name": "Apply For Job",

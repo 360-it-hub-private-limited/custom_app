@@ -77,7 +77,7 @@ class STask(NestedSet):
 			return ret
 
 	def validate(self):
-		self.validate_dates()
+		# self.validate_dates()
 		self.validate_progress()
 		self.validate_status()
 		self.update_depends_on()
