@@ -11,8 +11,11 @@
   "section_break_fb6q",
   "meeting_title",
   "meeting_type",
+  "attendeesuser",
+  "absendeesuser",
   "attendees",
   "absentees",
+  "action_items",
   "column_break_tsdj",
   "project_name",
   "customer",
@@ -95,17 +98,20 @@
   {
    "fieldname": "meeting_start_time",
    "fieldtype": "Datetime",
-   "label": "Meeting Start Time"
+   "label": "Meeting Start Time",
+   "reqd": 1
   },
   {
    "fieldname": "meeting_end_time",
    "fieldtype": "Datetime",
-   "label": "Meeting End Time"
+   "label": "Meeting End Time",
+   "reqd": 1
   },
   {
    "fieldname": "duration",
    "fieldtype": "Data",
-   "label": "Duration"
+   "label": "Duration",
+   "read_only": 1
   },
   {
    "fieldname": "meeting_discussions_tab",
@@ -155,12 +161,30 @@
    "print_hide": 1,
    "read_only": 1,
    "search_index": 1
+  },
+  {
+   "fieldname": "attendeesuser",
+   "fieldtype": "Table MultiSelect",
+   "label": "Attendees(User)",
+   "options": "Multiselect User",
+   "reqd": 1
+  },
+  {
+   "fieldname": "absendeesuser",
+   "fieldtype": "Table MultiSelect",
+   "label": "Absendees(User)",
+   "options": "Multiselect User"
+  },
+  {
+   "fieldname": "action_items",
+   "fieldtype": "Small Text",
+   "label": "Action Items"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-03-19 11:50:19.846031",
+ "modified": "2024-04-24 10:40:02.353669",
  "modified_by": "Administrator",
  "module": "360ithub_custom_module",
  "name": "Meeting of Minutes",

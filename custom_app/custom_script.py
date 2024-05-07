@@ -156,3 +156,47 @@ def update_todo(todo_name, updated_values):
     todo.update(updated_values_dict)
     todo.save()
     return True
+    
+    
+    
+    
+
+@frappe.whitelist()
+def get_description(designation):
+    # Fetch the description based on the provided designation
+    description = frappe.get_value("Designation", filters={"name": designation}, fieldname="description")
+
+    return description
+
+
+
+
+
+
+@frappe.whitelist()
+def check_duplicate_email(job_title, email):
+    # Check if an application with the same job title and email already exists
+    existing_application = frappe.get_all("Job Applicant", filters={"job_title": job_title, "email_id": email})
+    
+    if existing_application:
+        return True  # Duplicate email found
+    else:
+        return False  # No duplicate email found
+        
+        
+        
+
+import frappe
+from frappe import _
+
+@frappe.whitelist(allow_guest=True)
+def validate_job_application(job_title, email):
+    # Check if an application with the same job title and email already exists
+    existing_application = frappe.get_all("Job Applicant", filters={"job_title": job_title, "email_id": email})
+    
+    if existing_application:
+        return "An application with this job title and email already exists."
+    else:
+        return None
+
+

@@ -13,34 +13,39 @@
   "current_address",
   "permanent_address_check",
   "preferred_method_of_contact",
-  "permanent_address",
   "column_break_zruh",
+  "status",
   "resume_url",
   "resume",
-  "status",
+  "permanent_address",
   "employment_desired_section_section",
   "position_you_are_applying_for",
+  "column_break_mjxi",
   "type_of_employment",
+  "column_break_jsuq",
   "date_available_to_start_work",
   "education_section_section",
   "highest_level_of_education_completed",
   "year_of_pass_out",
   "column_break_stuz",
   "name_of_the_last_schoolcollegeuniversity",
+  "column_break_jfsf",
   "relevant_certifications_or_training",
   "section_break_wvlm",
   "job_type",
   "last_ctc",
   "desired_salary",
-  "currentlast_employer",
   "job_title_and_primary_duties",
   "column_break_mcmp",
   "start_date_of_employment",
   "end_date_of_employment",
   "reason_for_leaving",
+  "currentlast_employer",
   "skills_and_qualification_section",
   "specialized_skillstraining_or_qualifications",
+  "column_break_dyql",
   "list_any_programming_or_software_or_tools_you_are_proficient_in",
+  "column_break_uohf",
   "language_proficiencies",
   "additional_questions_section_section",
   "explain_any_gaps_in_your_employment_history",
@@ -77,6 +82,7 @@
   {
    "fieldname": "preferred_method_of_contact",
    "fieldtype": "Select",
+   "hidden": 1,
    "label": "Preferred Method of Contact",
    "options": "Phone\nEmail"
   },
@@ -169,7 +175,7 @@
   {
    "depends_on": "eval:doc.job_type == 'Experienced'\n",
    "fieldname": "desired_salary",
-   "fieldtype": "Small Text",
+   "fieldtype": "Data",
    "label": "Desired Salary"
   },
   {
@@ -192,12 +198,14 @@
    "depends_on": "eval:doc.job_type == 'Experienced'\n",
    "fieldname": "start_date_of_employment",
    "fieldtype": "Date",
+   "hidden": 1,
    "label": "Start Date Of Employment"
   },
   {
    "depends_on": "eval:doc.job_type == 'Experienced'\n",
    "fieldname": "end_date_of_employment",
    "fieldtype": "Date",
+   "hidden": 1,
    "label": "End Date Of Employment"
   },
   {
@@ -249,10 +257,30 @@
    "fieldtype": "Select",
    "label": "Status",
    "options": "Open\nReviewed"
+  },
+  {
+   "fieldname": "column_break_mjxi",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_jsuq",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_jfsf",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_dyql",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_uohf",
+   "fieldtype": "Column Break"
   }
  ],
  "links": [],
- "modified": "2024-04-19 15:25:01.069833",
+ "modified": "2024-04-20 09:44:31.632412",
  "modified_by": "Administrator",
  "module": "custom_app",
  "name": "Other Job Applicant",
