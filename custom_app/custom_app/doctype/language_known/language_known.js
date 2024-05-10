@@ -1,7 +1,7 @@
 // Copyright (c) 2024, pankaj@360ithub.com and contributors
 // For license information, please see license.txt
 
-// frappe.ui.form.on("Other Job Applicant", {
+// frappe.ui.form.on("Language Known", {
 // 	refresh(frm) {
 
 // 	},

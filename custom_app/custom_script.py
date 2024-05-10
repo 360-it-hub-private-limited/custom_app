@@ -200,3 +200,29 @@ def validate_job_application(job_title, email):
         return None
 
 
+
+@frappe.whitelist()
+def get_skills_by_designation(designation):
+    # Fetch the Designation document
+    designation_doc = frappe.get_doc("Designation", designation)
+    
+    skills_with_descriptions = []
+
+    # Iterate over the child table 'skills' in the Designation document
+    for skill_row in designation_doc.get("skills"):
+        skill_name = skill_row.skill
+
+        # Fetch descriptions for each skill from the 'Skill' DocType
+        skill_details = frappe.get_value("Skill", {"name": skill_name}, ["name", "description"], as_dict=True)
+        if skill_details:
+            skills_with_descriptions.append(skill_details)
+
+    return skills_with_descriptions
+
+
+
+@frappe.whitelist(allow_guest=True)
+def get_valid_skill_options():
+    # Fetch valid options from the Skill doctype
+    skill_names = frappe.get_all("Skill", fields=["name"])
+    return [skill.get("name") for skill in skill_names]

@@ -5,5 +5,5 @@
 from frappe.tests.utils import FrappeTestCase
 
 
-class TestOtherJobApplicant(FrappeTestCase):
+class TestLanguageKnown(FrappeTestCase):
 	pass
