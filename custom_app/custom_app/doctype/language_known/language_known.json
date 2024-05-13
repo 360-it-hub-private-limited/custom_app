@@ -13,9 +13,10 @@
  "fields": [
   {
    "fieldname": "language",
-   "fieldtype": "Data",
+   "fieldtype": "Select",
    "in_list_view": 1,
-   "label": "Language"
+   "label": "Language",
+   "options": "English\nHindi\nBengali\nTelugu\nMarathi\nTamil\nUrdu\nGujarati\nKannada\nMalayalam\nPunjabi\nOdia"
   },
   {
    "columns": 2,
@@ -45,7 +46,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-05-09 17:45:43.306571",
+ "modified": "2024-05-10 18:39:32.310166",
  "modified_by": "Administrator",
  "module": "custom_app",
  "name": "Language Known",
