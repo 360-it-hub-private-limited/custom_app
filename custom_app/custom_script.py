@@ -201,6 +201,10 @@ def validate_job_application(job_title, email):
 
 
 
+
+
+
+
 @frappe.whitelist()
 def get_skills_by_designation(designation):
     # Fetch the Designation document
@@ -226,3 +230,10 @@ def get_valid_skill_options():
     # Fetch valid options from the Skill doctype
     skill_names = frappe.get_all("Skill", fields=["name"])
     return [skill.get("name") for skill in skill_names]
+    
+    
+    
+@frappe.whitelist()
+def get_all_skills():
+    skills = frappe.get_all("Skill", fields=["name", "skill_name"])
+    return skills
