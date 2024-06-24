@@ -5,5 +5,5 @@
 from frappe.model.document import Document
 
 
-class MeetingofMinutes(Document):
+class MinutesofMeeting(Document):
 	pass

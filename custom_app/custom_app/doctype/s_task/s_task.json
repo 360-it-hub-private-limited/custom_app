@@ -468,6 +468,8 @@
   {
    "fieldname": "modules",
    "fieldtype": "Select",
+   "in_filter": 1,
+   "in_standard_filter": 1,
    "label": "Modules",
    "options": "\nAccounts\nCRM\nHR\nOperations\nPermissions\nAPI\nOthers",
    "reqd": 1
@@ -476,7 +478,7 @@
  "icon": "fa fa-check",
  "links": [],
  "max_attachments": 5,
- "modified": "2024-04-16 13:22:52.895496",
+ "modified": "2024-05-17 12:25:40.102502",
  "modified_by": "Administrator",
  "module": "custom_app",
  "name": "S Task",
