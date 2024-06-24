@@ -138,6 +138,19 @@ app_license = "mit"
 # Scheduled Tasks
 # ---------------
 
+
+# scheduler_events = {
+#     "cron":{
+#         "00 23 * * *":
+#             [
+#             "custom_app.custom_attendance.checkin_out_for_missed_logs"
+#             ],
+            
+#     },
+# },
+
+
+
 # scheduler_events = {
 # 	"all": [
 # 		"custom_app.tasks.all"
