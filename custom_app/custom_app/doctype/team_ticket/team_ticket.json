@@ -1,0 +1,143 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:TKT-{YY}{MM}{DD}-{###}",
+ "creation": "2024-06-24 10:05:23.637158",
+ "default_view": "List",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "title",
+  "type",
+  "sub_category",
+  "column_break_iien",
+  "created_by",
+  "status",
+  "date",
+  "section_break_oeed",
+  "description",
+  "reference_section",
+  "department",
+  "referred_doctype",
+  "column_break_lwgs",
+  "reference_attachment",
+  "reference_id"
+ ],
+ "fields": [
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "label": "Title",
+   "reqd": 1
+  },
+  {
+   "fieldname": "type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Type",
+   "options": "\nComplaints\nFeedback\nRequest\nOther",
+   "reqd": 1
+  },
+  {
+   "fieldname": "sub_category",
+   "fieldtype": "Link",
+   "label": "Sub Category",
+   "options": "Team Ticket Sub Category",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_iien",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "user",
+   "fieldname": "created_by",
+   "fieldtype": "Link",
+   "label": "Created By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "default": "Open",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Open\nUnder Review\nCompleted\nCancelled",
+   "permlevel": 1,
+   "reqd": 1
+  },
+  {
+   "default": "Now",
+   "fieldname": "date",
+   "fieldtype": "Datetime",
+   "label": "Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_oeed",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "label": "Description"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "reference_section",
+   "fieldtype": "Section Break",
+   "label": "Reference"
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Data",
+   "label": "Department"
+  },
+  {
+   "fieldname": "referred_doctype",
+   "fieldtype": "Link",
+   "label": "Referred Doctype",
+   "options": "DocType"
+  },
+  {
+   "fieldname": "column_break_lwgs",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "reference_attachment",
+   "fieldtype": "Attach",
+   "label": "Reference Attachment"
+  },
+  {
+   "fieldname": "reference_id",
+   "fieldtype": "Dynamic Link",
+   "label": "Reference ID",
+   "options": "referred_doctype"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-06-24 11:43:06.559806",
+ "modified_by": "Administrator",
+ "module": "custom_app",
+ "name": "Team Ticket",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
