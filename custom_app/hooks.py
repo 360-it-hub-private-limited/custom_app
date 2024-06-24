@@ -139,35 +139,38 @@ app_license = "mit"
 # ---------------
 
 
-# scheduler_events = {
-#     "cron":{
-#         "00 23 * * *":
-#             [
-#             "custom_app.custom_attendance.checkin_out_for_missed_logs"
-#             ],
+
+
+
+
+
+scheduler_events = {
+
+    "cron":{
+        "00 23 * * *":
+            [
+            "custom_app.custom_attendance.checkin_out_for_missed_logs"
+            ],
             
-#     },
-# },
+    },
 
 
-
-# scheduler_events = {
-# 	"all": [
-# 		"custom_app.tasks.all"
-# 	],
-# 	"daily": [
-# 		"custom_app.tasks.daily"
-# 	],
-# 	"hourly": [
-# 		"custom_app.tasks.hourly"
-# 	],
-# 	"weekly": [
-# 		"custom_app.tasks.weekly"
-# 	],
-# 	"monthly": [
-# 		"custom_app.tasks.monthly"
-# 	],
-# }
+	# "all": [
+	# 	"custom_app.tasks.all"
+	# ],
+	# "daily": [s
+	# 	"custom_app.tasks.daily"
+	# ],
+	# "hourly": [
+	# 	"custom_app.tasks.hourly"
+	# ],
+	# "weekly": [
+	# 	"custom_app.tasks.weekly"
+	# ],
+	# "monthly": [
+	# 	"custom_app.tasks.monthly"
+	# ],
+}
 
 # Testing
 # -------
