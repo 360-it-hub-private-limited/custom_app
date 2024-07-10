@@ -153,16 +153,6 @@
    "options": "Multi Attachments"
   },
   {
-   "fieldname": "amended_from",
-   "fieldtype": "Link",
-   "label": "Amended From",
-   "no_copy": 1,
-   "options": "Meeting of Minutes",
-   "print_hide": 1,
-   "read_only": 1,
-   "search_index": 1
-  },
-  {
    "fieldname": "attendeesuser",
    "fieldtype": "Table MultiSelect",
    "label": "Attendees(User)",
@@ -179,12 +169,22 @@
    "fieldname": "action_items",
    "fieldtype": "Small Text",
    "label": "Action Items"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Minutes of Meeting",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-04-24 10:40:02.353669",
+ "modified": "2024-07-05 12:25:45.901775",
  "modified_by": "Administrator",
  "module": "360ithub_custom_module",
  "name": "Minutes of Meeting",

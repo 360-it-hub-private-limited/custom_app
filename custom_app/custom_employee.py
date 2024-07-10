@@ -110,7 +110,7 @@ def get_leave_data():
     to_date = datetime(year, 12, 31 )
 
     # leave_types = get_leave_types()
-    leave_types = ['Leave Without Pay', 'Compensatory Off',  'Privilege Leave', 'Sick Leave', 'Special Leave']
+    leave_types = ['Leave Without Pay', 'Compensatory Off',  'Privilege Leave', 'Sick Leave', 'Special Leave','Casual Leave']
 
     active_employees = get_employee_for_user()
 
