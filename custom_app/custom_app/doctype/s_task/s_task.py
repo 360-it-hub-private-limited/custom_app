@@ -19,9 +19,11 @@ class CircularReferenceError(frappe.ValidationError):
 	pass
 
 
+
 class STask(NestedSet):
 	# begin: auto-generated types
 	# This code is auto-generated. Do not modify anything in this block.
+
 
 	from typing import TYPE_CHECKING
 
@@ -301,6 +303,61 @@ class STask(NestedSet):
 				self.db_set("status", "Overdue", update_modified=False)
 				self.update_project()
 
+	def before_save(doc):
+		
+		if doc.task_status=="Assigned" and doc.users is None:
+			frappe.throw(f"Task has to be assigned to a person before moving forward to task status {doc.task_status}")
+
+
+		# if doc.task_status == "In Functional Testing" and doc.coding_review_rating is None and doc.coding_review_feedback is None:
+		# 	frappe.throw("Please Fill the Code Revie and Rating")
+
+		if doc.task_status == "In Functional Testing":
+			# Fetch the project record
+			project = frappe.get_doc('S Project', doc.project)
+			
+			# Initialize an empty list to store the testers
+			custom_code_reviewers = []
+
+			# Iterate through the child table to get the testers
+			for tester in project.custom_code_reviewers:
+				custom_code_reviewers.append(tester.user)
+			# print('custom_functionalities_testerssssssssssssssssssssssss',custom_code_reviewers)
+			# Check if the session user is not in the custom_functionalities_testers field
+			if frappe.session.user not in custom_code_reviewers:
+				frappe.throw("You do not have permission to move this task to 'In Code Reviewed' status.")
+			
+
+		# if doc.task_status == "In UAT":
+		if doc.task_status in ["In UAT", "Completed"]:
+
+			# Fetch the project record
+			project = frappe.get_doc('S Project', doc.project)
+			
+			# Initialize an empty list to store the testers
+			custom_functionalities_testers = []
+
+			# Iterate through the child table to get the testers
+			for tester in project.custom_functionalities_testers:
+				custom_functionalities_testers.append(tester.user)
+			# print('custom_functionalities_testerssssssssssssssssssssssss',custom_functionalities_testers)
+			# Check if the session user is not in the custom_functionalities_testers field
+			if frappe.session.user not in custom_functionalities_testers:
+				frappe.throw("You do not have permission to move this task to 'Functionality testing is done' status.")
+
+		# if doc.task_status=="In Code Review":
+		# if doc.task_status == "In Development":
+		# 	# Iterate through all fields and make them read-only
+		# 	for fieldname, fieldvalue in doc.as_dict().items():
+		# 		if isinstance(fieldvalue, dict) and fieldvalue.get("fieldtype") != "Table":
+		# 			doc.fields[fieldname].read_only = 1
+
+
+
+def save_review_details(doc, review_details):
+    doc.review_details = review_details
+    doc.save()
+    frappe.msgprint("Review details saved successfully.")
 
 @frappe.whitelist()
 def check_if_child_exists(name):
@@ -449,3 +506,52 @@ def on_doctype_update():
 
 
 
+
+
+
+import frappe
+from frappe import _
+
+
+@frappe.whitelist()
+def update_task_revision_table(docname, old_estimated_hours, revised_estimated_hours, revision_requested_by, revision_approved_by, reason_for_revision):
+    
+    if old_estimated_hours == revised_estimated_hours:
+        frappe.throw(_('Old Estimated Hours cannot be equal to Revised Estimated Hours'))
+
+    doc = frappe.get_doc('S Task', docname)
+    
+    # Add child table row
+    doc.append('task_revision_table', {
+        'doctype': 'Task Revision Table',
+        'old_estimated_hours': old_estimated_hours,
+        'revised_estimated_hours': revised_estimated_hours,
+        'revision_requested_by': revision_requested_by,
+        'revision_approved_by': revision_approved_by,
+        'reason_for_revision': reason_for_revision
+    })
+
+    # Save the document
+    doc.save()
+
+    # Update expected_time field
+    doc.expected_time = revised_estimated_hours
+    doc.save()
+
+    return True
+
+# In custom_app/custom_app/doctype/s_project/s_project.py
+
+@frappe.whitelist()
+def get_project_details(project):
+    # Fetch project details including custom_project_manager
+    project_doc = frappe.get_doc('S Project', project)
+    
+    # Example: Fetching custom_project_manager as list of user IDs
+    custom_project_manager = [user.user for user in project_doc.custom_project_manager] if project_doc.custom_project_manager else []
+    # print('dddddddddddddddddddd',custom_project_manager)
+    # Return relevant details as a dictionary
+    return {
+        'custom_project_manager': custom_project_manager,
+        # Add other relevant fields as needed
+    }

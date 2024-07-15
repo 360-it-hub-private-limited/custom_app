@@ -30,15 +30,12 @@
   "department",
   "planned_effort_hours",
   "actual_effort_hours",
-  "test",
   "customer_details",
   "column_break_paaj",
   "customer",
   "column_break_14",
   "sales_order",
   "customer_mail_id",
-  "users_section",
-  "userss",
   "section_break_18",
   "actual_start_date",
   "actual_time",
@@ -79,7 +76,13 @@
   "column_break_lcsz",
   "warranty_end_date",
   "task_details_tab",
-  "task"
+  "task",
+  "tasks_analytics_tab",
+  "tasks_analytics_html",
+  "task_by_user_html",
+  "project_user_role_tab",
+  "users_section",
+  "userss"
  ],
  "fields": [
   {
@@ -547,16 +550,31 @@
    "options": "Email"
   },
   {
-   "fieldname": "test",
-   "fieldtype": "Data",
-   "label": "test"
+   "fieldname": "tasks_analytics_tab",
+   "fieldtype": "Tab Break",
+   "label": "Tasks Analytics"
+  },
+  {
+   "fieldname": "tasks_analytics_html",
+   "fieldtype": "HTML",
+   "label": "Tasks Analytics HTML"
+  },
+  {
+   "fieldname": "task_by_user_html",
+   "fieldtype": "HTML",
+   "label": "Task By User HTML"
+  },
+  {
+   "fieldname": "project_user_role_tab",
+   "fieldtype": "Tab Break",
+   "label": "Project User Role"
   }
  ],
  "icon": "fa fa-puzzle-piece",
  "index_web_pages_for_search": 1,
  "links": [],
  "max_attachments": 4,
- "modified": "2024-02-13 11:34:53.766522",
+ "modified": "2024-07-11 15:08:18.047196",
  "modified_by": "Administrator",
  "module": "custom_app",
  "name": "S Project",

@@ -67,6 +67,24 @@ def get_tasks_for_project(project_id):
         frappe.log_error("Error fetching tasks for project {0}".format(project_id), title="Get Tasks Error")
         frappe.throw("Error fetching tasks. Please try again.")
 
+
+
+
+@frappe.whitelist()
+def get_shared_users(project_name):
+    shared_users = frappe.get_all('DocShare', filters={'share_doctype': 'S Project', 'name': project_name})
+    return [{"user": user.user} for user in shared_users]
+
+@frappe.whitelist()
+def remove_user_from_project(project_name, user):
+    frappe.share.remove('S Project', project_name, user)
+
+@frappe.whitelist()
+def remove_user_from_tasks(project_name, user):
+    tasks = frappe.get_all('S Task', filters={'project': project_name})
+    for task in tasks:
+        frappe.share.remove('S Task', task.name, user)
+
 @frappe.whitelist()
 def share_user_with_project(project_name, user):
     try:
@@ -250,3 +268,113 @@ def share_user_with_customer(project_name, customer_email):
 def get_tasks_for_project_status(project_id):
     tasks = frappe.get_all("S Task", filters={"project": project_id}, fields=["task_status"])
     return tasks
+
+
+
+
+@frappe.whitelist()
+def get_task_statuses_and_priorities():
+    # Fetch distinct task statuses and priorities using SQL
+    sql_query = """
+        SELECT DISTINCT task_status
+        FROM `tabS Task`
+    """
+    statuses = frappe.db.sql(sql_query, as_dict=True)
+
+    sql_query = """
+        SELECT DISTINCT priority
+        FROM `tabS Task`
+    """
+    priorities = frappe.db.sql(sql_query, as_dict=True)
+
+    # Extract values from query results
+    unique_statuses = [status['task_status'] for status in statuses]
+    unique_priorities = [priority['priority'] for priority in priorities]
+
+    return {
+        'statuses': unique_statuses,
+        'priorities': unique_priorities
+    }
+
+
+
+@frappe.whitelist()
+def get_tasks_for_project_status_1(project_id):
+    # Query to fetch tasks based on project_id
+    tasks = frappe.get_list('S Task',
+                            filters={'project': project_id},
+                            fields=['name', 'task_status', 'priority','users'])
+    tasks_unallocated = frappe.get_list('S Task',
+                            filters={'project': project_id,'users':''},
+                            fields=['name', 'task_status', 'priority'])
+    # print ('sdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',len(tasks_unallocated))
+    return tasks
+
+
+
+
+
+import frappe
+
+@frappe.whitelist()
+def get_tasks_by_user_for_project(project_id, users):
+    if not users:
+        return []
+
+    users = frappe.parse_json(users)
+
+    # Fetch tasks for the given project and selected users
+    tasks = frappe.get_all('S Task', filters={
+        'project': project_id,
+        'users': ['in', users]
+    }, fields=['name', 'users', 'task_status', 'priority'])
+
+    return tasks
+
+
+
+
+import frappe
+
+@frappe.whitelist()
+def get_projects_for_user(session_user):
+    projects = frappe.get_list(
+        'S Project',
+        filters={'userss': ['like', '%' + session_user + '%']},
+        fields=['name']
+    )
+    return projects
+
+# @frappe.whitelist()
+# def get_tasks_for_project(project_name):
+#     tasks = frappe.get_list(
+#         'S Task',
+#         filters={'project': project_name},
+#         fields=['name', 'subject', 'task_status', 'priority', 'users']
+#     )
+#     return tasks
+# In your custom app's Python file (e.g., my_custom_app/my_custom_app/doctype/s_project/s_project.py)
+
+# In your custom app's Python file (e.g., custom_app/custom_app/pankaj.py)
+
+import frappe
+from frappe import _
+
+@frappe.whitelist()
+def get_project_users(project_name):
+    try:
+        # Fetch the project document
+        project = frappe.get_doc('S Project', project_name)
+        
+        # Check if userss field exists and is not empty
+        if project and project.userss:
+            # Ensure userss is returned as a list
+            if isinstance(project.userss, list):
+                return project.userss
+            else:
+                return project.userss.split('\n')
+        else:
+            return []
+    except Exception as e:
+        frappe.log_error(f"Error fetching project users for {project_name}: {str(e)}")
+        return []
