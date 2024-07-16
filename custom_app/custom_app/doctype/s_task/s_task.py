@@ -324,9 +324,9 @@ class STask(NestedSet):
 				custom_code_reviewers.append(tester.user)
 			# print('custom_functionalities_testerssssssssssssssssssssssss',custom_code_reviewers)
 			# Check if the session user is not in the custom_functionalities_testers field
-			if frappe.session.user not in custom_code_reviewers:
+			if frappe.session.user != 'Administrator' and frappe.session.user not in custom_code_reviewers:
 				frappe.throw("You do not have permission to move this task to 'In Code Reviewed' status.")
-			
+
 
 		# if doc.task_status == "In UAT":
 		if doc.task_status in ["In UAT", "Completed"]:
@@ -342,7 +342,7 @@ class STask(NestedSet):
 				custom_functionalities_testers.append(tester.user)
 			# print('custom_functionalities_testerssssssssssssssssssssssss',custom_functionalities_testers)
 			# Check if the session user is not in the custom_functionalities_testers field
-			if frappe.session.user not in custom_functionalities_testers:
+			if frappe.session.user != 'Administrator' and frappe.session.user not in custom_functionalities_testers:
 				frappe.throw("You do not have permission to move this task to 'Functionality testing is done' status.")
 
 		# if doc.task_status=="In Code Review":

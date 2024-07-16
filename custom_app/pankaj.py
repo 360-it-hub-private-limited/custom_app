@@ -332,33 +332,149 @@ def get_tasks_by_user_for_project(project_id, users):
     return tasks
 
 
+#with out project status
+# @frappe.whitelist()
+# def get_projects_for_user(session_user):
+#     try:
+#         projects = frappe.db.sql("""
+#             SELECT
+#                 DISTINCT parent AS name
+#             FROM
+#                 `tabMultiselect User`
+#             WHERE
+#                 user = %s
+#             AND parenttype = 'S Project'
+#         """, (session_user), as_dict=True)
+#         return projects
+#     except Exception as e:
+#         frappe.log_error(f"Error fetching projects for user: {str(e)}", "get_projects_for_user")
+#         return []
 
 
-import frappe
-
+# With project status
 @frappe.whitelist()
 def get_projects_for_user(session_user):
-    projects = frappe.get_list(
-        'S Project',
-        filters={'userss': ['like', '%' + session_user + '%']},
-        fields=['name']
-    )
-    return projects
+    try:
+        projects = frappe.db.sql("""
+            SELECT DISTINCT
+                name
+            FROM
+                `tabS Project`
+            WHERE
+                name IN (
+                    SELECT DISTINCT
+                        parent
+                    FROM
+                        `tabMultiselect User`
+                    WHERE
+                        user = %s
+                        AND parenttype = 'S Project'
+                )
+                AND status = 'Open'
+        """, (session_user), as_dict=True)
+        return projects
+    except Exception as e:
+        frappe.log_error(f"Error fetching projects for user: {str(e)}", "get_projects_for_user")
+        return []
+
+
+@frappe.whitelist()
+def get_tasks_information(project_name, user):
+    try:
+        # Fetch tasks with no users assigned (unallocated time)
+        unallocated_tasks = frappe.get_all(
+            'S Task',
+            filters={
+                'project': project_name,
+                'users': ''
+            },
+            fields=['name', 'expected_time']
+        )
+        
+        total_unallocated_time = sum([task.expected_time for task in unallocated_tasks if task.expected_time])
+        unallocated_task_count = len(unallocated_tasks)
+
+        # Fetch tasks assigned to the session user with status Assigned or In Development
+        assigned_tasks = frappe.get_all(
+            'S Task',
+            filters={
+                'project': project_name,
+                'users': user,
+                'task_status': ['in', ['Assigned', 'In Development']]
+            },
+            fields=['name', 'expected_time']
+        )
+
+        assigned_working_hours = sum([task.expected_time for task in assigned_tasks if task.expected_time])
+        assigned_task_count = len(assigned_tasks)
+
+        total_available_working_hours = total_unallocated_time + assigned_working_hours
+
+        return {
+            "total_unallocated_time": total_unallocated_time,
+            "unallocated_task_count": unallocated_task_count,
+            "assigned_working_hours": assigned_working_hours,
+            "assigned_task_count": assigned_task_count,
+            "total_available_working_hours": total_available_working_hours
+        }
+    except Exception as e:
+        frappe.log_error(f"Error fetching tasks information for project {project_name}: {str(e)}", "get_tasks_information")
+        return {
+            "total_unallocated_time": 0,
+            "unallocated_task_count": 0,
+            "assigned_working_hours": 0,
+            "assigned_task_count": 0,
+            "total_available_working_hours": 0
+        }
+
+
+
 
 # @frappe.whitelist()
-# def get_tasks_for_project(project_name):
-#     tasks = frappe.get_list(
-#         'S Task',
-#         filters={'project': project_name},
-#         fields=['name', 'subject', 'task_status', 'priority', 'users']
-#     )
-#     return tasks
-# In your custom app's Python file (e.g., my_custom_app/my_custom_app/doctype/s_project/s_project.py)
+# def get_tasks_for_project(project_name, user):
+#     try:
+#         tasks = frappe.get_all(
+#             'S Task',
+#             filters={'project': project_name},
+#             fields=['subject', 'status', 'priority', 'users', 'expected_time']
+#         )
+        
+#         user_tasks = [task for task in tasks if task.users == user]
+#         total_expected_time = sum([task.expected_time for task in user_tasks if task.expected_time])
+#         print('total_expected_timessssssssssssssssss',total_expected_time)
+#         return {
+#             "tasks": tasks,
+#             "total_expected_time": total_expected_time
+#         }
+#     except Exception as e:
+#         frappe.log_error(f"Error fetching tasks for project {project_name}: {str(e)}", "get_tasks_for_project")
+#         return []
 
-# In your custom app's Python file (e.g., custom_app/custom_app/pankaj.py)
 
-import frappe
-from frappe import _
+# @frappe.whitelist()
+# def get_tasks_information(project_name, user):
+#     try:
+#         tasks = frappe.get_all(
+#             'S Task',
+#             filters={
+#                 'project': project_name,
+#                 'users': user,
+#                 'status': ['in', ['Assigned', 'In Development']]
+#             },
+#             fields=['expected_time']
+#         )
+
+#         assigned_working_hours = sum([task.expected_time for task in tasks if task.expected_time])
+
+#         return {
+#             "assigned_working_hours": assigned_working_hours,
+#             "tasks": tasks
+#         }
+#     except Exception as e:
+#         frappe.log_error(f"Error fetching tasks information for project {project_name}: {str(e)}", "get_tasks_information")
+#         return {"assigned_working_hours": 0, "tasks": []}
+
+
 
 @frappe.whitelist()
 def get_project_users(project_name):

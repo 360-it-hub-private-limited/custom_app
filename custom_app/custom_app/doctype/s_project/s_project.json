@@ -102,7 +102,7 @@
    "no_copy": 1,
    "oldfieldname": "status",
    "oldfieldtype": "Select",
-   "options": "Open\nHold\nCompleted\nCancelled",
+   "options": "Open\nHold\nCompleted\nCancelled\nClosed",
    "search_index": 1
   },
   {
@@ -574,7 +574,7 @@
  "index_web_pages_for_search": 1,
  "links": [],
  "max_attachments": 4,
- "modified": "2024-07-11 15:08:18.047196",
+ "modified": "2024-07-16 14:54:27.862083",
  "modified_by": "Administrator",
  "module": "custom_app",
  "name": "S Project",
