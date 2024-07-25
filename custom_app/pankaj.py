@@ -494,3 +494,17 @@ def get_project_users(project_name):
     except Exception as e:
         frappe.log_error(f"Error fetching project users for {project_name}: {str(e)}")
         return []
+
+
+
+# custom_app/pankaj.py
+
+@frappe.whitelist()
+def add_work_log_entry(task_name, start_time):
+    # print('start_timeeeeeeeeeeeeeeeeeeee',start_time)
+    task = frappe.get_doc("S Task", task_name)
+    task.append("work_log_table", {
+        "start_time": start_time
+    })
+    task.save()
+    return task

@@ -97,7 +97,11 @@
   "column_break_mkjo",
   "functionalities_satisfaction",
   "column_break_fiee",
-  "coding_standards"
+  "coding_standards",
+  "work_log_tab",
+  "work_lob_section",
+  "work_log_table_column",
+  "work_log_table"
  ],
  "fields": [
   {
@@ -692,12 +696,32 @@
    "fieldtype": "Table",
    "label": "Functionality Tester Table",
    "options": "Reviewer Details"
+  },
+  {
+   "fieldname": "work_log_tab",
+   "fieldtype": "Tab Break",
+   "label": "Work Log"
+  },
+  {
+   "fieldname": "work_lob_section",
+   "fieldtype": "Section Break",
+   "label": "Work Lob"
+  },
+  {
+   "fieldname": "work_log_table_column",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "work_log_table",
+   "fieldtype": "Table",
+   "label": "Work Log Table",
+   "options": "S Task Work Log"
   }
  ],
  "icon": "fa fa-check",
  "links": [],
  "max_attachments": 5,
- "modified": "2024-07-15 09:11:25.084694",
+ "modified": "2024-07-25 13:16:24.934735",
  "modified_by": "Administrator",
  "module": "custom_app",
  "name": "S Task",

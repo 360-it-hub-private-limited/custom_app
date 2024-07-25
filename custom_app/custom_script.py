@@ -237,3 +237,4 @@ def get_valid_skill_options():
 def get_all_skills():
     skills = frappe.get_all("Skill", fields=["name", "skill_name"])
     return skills
+
