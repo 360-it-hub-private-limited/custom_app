@@ -144,6 +144,8 @@ class STimesheet(Document):
 		self.update_task_and_project()
 
 	def on_submit(self):
+		if self.total_hours > 16:
+			frappe.throw('Total Working Hours cannot be greater then 24')
 		self.validate_mandatory_fields()
 		self.update_task_and_project()
 

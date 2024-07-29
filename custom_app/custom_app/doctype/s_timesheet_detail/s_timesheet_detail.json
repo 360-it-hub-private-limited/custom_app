@@ -8,20 +8,22 @@
  "engine": "InnoDB",
  "field_order": [
   "activity_type",
-  "from_time",
+  "project",
+  "task",
+  "column_break_tpnw",
   "description",
   "section_break_3",
-  "expected_hours",
-  "to_time",
-  "hours",
-  "completed",
   "start_time",
   "end_time",
+  "hours",
+  "from_work_log",
   "project_details",
-  "project",
   "project_name",
   "column_break_2",
-  "task",
+  "expected_hours",
+  "from_time",
+  "completed",
+  "to_time",
   "section_break_6",
   "is_billable",
   "sales_invoice",
@@ -45,13 +47,16 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Activity Type",
-   "options": "Activity Type"
+   "options": "Activity Type",
+   "read_only_depends_on": "from_work_log",
+   "reqd": 1
   },
   {
    "columns": 2,
    "fieldname": "from_time",
    "fieldtype": "Datetime",
-   "label": "From Time"
+   "label": "From Time",
+   "read_only_depends_on": "from_work_log"
   },
   {
    "fieldname": "description",
@@ -70,7 +75,8 @@
   {
    "fieldname": "to_time",
    "fieldtype": "Datetime",
-   "label": "To Time"
+   "label": "To Time",
+   "read_only_depends_on": "from_work_log"
   },
   {
    "columns": 1,
@@ -78,6 +84,7 @@
    "fieldtype": "Float",
    "in_list_view": 1,
    "label": "Hrs",
+   "read_only_depends_on": "from_work_log",
    "reqd": 1
   },
   {
@@ -98,7 +105,8 @@
    "in_list_view": 1,
    "label": "Project",
    "options": "S Project",
-   "read_only_depends_on": "eval: parent.parent_project"
+   "read_only_depends_on": "from_work_log",
+   "reqd": 1
   },
   {
    "fetch_from": "project.project_name",
@@ -117,7 +125,9 @@
    "in_list_view": 1,
    "label": "Task",
    "options": "S Task",
-   "remember_last_selected_value": 1
+   "read_only_depends_on": "from_work_log",
+   "remember_last_selected_value": 1,
+   "reqd": 1
   },
   {
    "fieldname": "section_break_6",
@@ -230,18 +240,31 @@
    "fieldname": "start_time",
    "fieldtype": "Time",
    "in_list_view": 1,
-   "label": "Start Time"
+   "label": "Start Time",
+   "read_only_depends_on": "from_work_log"
   },
   {
    "fieldname": "end_time",
    "fieldtype": "Time",
    "in_list_view": 1,
-   "label": "End Time"
+   "label": "End Time",
+   "read_only_depends_on": "from_work_log"
+  },
+  {
+   "default": "0",
+   "fieldname": "from_work_log",
+   "fieldtype": "Check",
+   "label": "From work Log",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_tpnw",
+   "fieldtype": "Column Break"
   }
  ],
  "istable": 1,
  "links": [],
- "modified": "2024-03-27 09:54:44.604473",
+ "modified": "2024-07-26 17:07:16.089802",
  "modified_by": "Administrator",
  "module": "custom_app",
  "name": "S Timesheet Detail",
