@@ -1,0 +1,93 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:Blog-{MM}-{###}",
+ "creation": "2024-02-27 10:56:07.376990",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "blog_image",
+  "blog_heading",
+  "column_break_kuxz",
+  "is_published",
+  "posted_on",
+  "publisher_name",
+  "section_break_yckh",
+  "blog_content"
+ ],
+ "fields": [
+  {
+   "fieldname": "blog_image",
+   "fieldtype": "Attach",
+   "label": "Blog Image"
+  },
+  {
+   "fieldname": "blog_heading",
+   "fieldtype": "Small Text",
+   "label": "Blog Heading"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_published",
+   "fieldtype": "Check",
+   "label": "Is Published"
+  },
+  {
+   "fieldname": "blog_content",
+   "fieldtype": "Text Editor",
+   "label": "Blog Content"
+  },
+  {
+   "fieldname": "column_break_kuxz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_yckh",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "posted_on",
+   "fieldtype": "Datetime",
+   "label": "Posted On"
+  },
+  {
+   "fieldname": "publisher_name",
+   "fieldtype": "Data",
+   "label": "Publisher Name"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-02-28 17:44:39.268076",
+ "modified_by": "Administrator",
+ "module": "custom_app",
+ "name": "Blogs",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Guest",
+   "share": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

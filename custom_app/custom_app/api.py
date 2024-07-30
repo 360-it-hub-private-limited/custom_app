@@ -80,6 +80,38 @@ def process_form_data(form_data):
 
 
 
+@frappe.whitelist(allow_guest=True)
+def process_form_data_blog(form_data):
+
+    try:
+        
+        name = frappe.form_dict.get("name")
+        comment_text = frappe.form_dict.get("comment_text")
+      
+        parsed_data = urllib.parse.parse_qs(form_data)
+       
+        name = parsed_data.get("name", [None])[0]
+        comment_text = parsed_data.get("comment_text", [None])[0]
+        
+
+
+    
+
+        # Replace "YourCustomDoctype" with the actual name of your Doctype
+        blog = frappe.new_doc("Blog Comment")
+        blog.blog_id = name
+        blog.comment = comment_text
+        
+        # frappe.msgprint("Form data ==> "+blog)
+
+        # Save the document to persist the changes
+        blog.insert()
+
+        return ("Data inserted successfully.")
+    except Exception as e:
+        frappe.log_error(str(e))
+        return "Error inserting data: " + str(e)
+
 
 # from frappe.utils.file_manager import save_file
 
@@ -261,3 +293,56 @@ def support_ticket(form_data=None, **kwargs):
     except Exception as e:
         frappe.log_error("Error inserting data: " + str(e))
         return "Error inserting data. Please try again. Error: " + str(e)
+
+
+
+
+
+
+
+# import frappe
+# import urllib.parse
+
+# @frappe.whitelist(allow_guest=True)
+# def apply_for_job(name=None, email=None, phone=None, cover_letter=None, resume_url=None, role=None, resume=None, **kwargs):
+#     try:
+#         # Check for required fields
+#         if not name:
+#             return "Error: Applicant Name is required."
+
+#         # Your existing code for creating Job Applicant document
+#         apply_for_job_doc = frappe.new_doc("Apply For Job")
+#         apply_for_job_doc.name1 = name
+#         apply_for_job_doc.email = email
+#         apply_for_job_doc.mobile_no = phone
+#         apply_for_job_doc.description = cover_letter
+#         apply_for_job_doc.resume_url = resume_url
+#         apply_for_job_doc.job_role = role
+#         apply_for_job_doc.insert()
+
+#         # Handle file upload
+#         if resume:
+#             print(resume.name)
+#             # Save the file
+#             file_doc = frappe.get_doc({
+#                 "doctype": "File",
+#                 "file_name": resume,
+#                 "attached_to_doctype": "Apply For Job",
+#                 "attached_to_name": apply_for_job_doc.name,
+#                 "is_private": 0,  # Set to 1 if the file should be private
+#                 "file_url": "/private/files/" + resume,  # Specify the file URL
+#                 "content": resume.file.read()
+#             })
+#             file_doc.insert()
+
+#             # Set the file URL in the Apply For Job document
+#             apply_for_job_doc.resume = file_doc.file_url
+#             apply_for_job_doc.save()
+
+#             return "Data inserted successfully with file upload."
+#         else:
+#             return "Error: No resume file provided."
+
+#     except Exception as e:
+#         frappe.log_error("Error inserting data: " + str(e))
+#         return "Error inserting data. Please try again. Error: " + str(e)

@@ -1,0 +1,1144 @@
+{% extends "templates/custom_web.html" %}
+{% block content %}
+  <style>
+    /*--------------------------------------------------------------
+# Blog Details Page
+--------------------------------------------------------------*/
+    .blog {
+      padding: 160px 20px !important;
+    }
+
+    .blog-p {
+      color: rgb(93, 93, 93);
+    }
+
+    .auth-name {
+      margin-bottom: 10px !important;
+    }
+
+    .blog .blog-details {
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+    }
+
+    .blog .blog-details .post-img {
+      margin: -30px -30px 20px -30px;
+      overflow: hidden;
+    }
+
+    .blog .blog-details .title {
+      font-size: 28px;
+      font-weight: 700;
+      padding: 0;
+      margin: 20px 0 0 0;
+      color: var(--color-secondary);
+    }
+
+    .blog .blog-details .content {
+      margin-top: 20px;
+      padding-bottom: 20px;
+    }
+
+    .blog .blog-details .content h3 {
+      font-size: 22px;
+      margin-top: 30px;
+      font-weight: bold;
+    }
+
+    .blog .blog-details .content blockquote {
+      overflow: hidden;
+      background-color: rgba(27, 47, 69, 0.06);
+      padding: 60px;
+      position: relative;
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .blog .blog-details .content blockquote p {
+      color: var(--color-default);
+      line-height: 1.6;
+      margin-bottom: 0;
+      font-style: italic;
+      font-weight: 500;
+      font-size: 22px;
+    }
+
+    .blog .blog-details .content blockquote:after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background-color: var(--color-secondary);
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+
+    .blog .blog-details .meta-top {
+      margin-top: 20px;
+      color: var(--color-gray);
+    }
+
+    .blog .blog-details .meta-top ul {
+      display: flex;
+      flex-wrap: wrap;
+      list-style: none;
+      align-items: center;
+      padding: 0;
+      margin: 0;
+    }
+
+    .blog .blog-details .meta-top ul li+li {
+      padding-left: 20px;
+    }
+
+    .blog .blog-details .meta-top i {
+      font-size: 16px;
+      margin-right: 8px;
+      line-height: 0;
+      color: rgba(86, 184, 230, 0.8);
+    }
+
+    .blog .blog-details .meta-top a {
+      color: var(--color-gray);
+      font-size: 14px;
+      display: inline-block;
+      line-height: 1;
+    }
+
+    .blog .blog-details .meta-bottom {
+      padding-top: 10px;
+      border-top: 1px solid rgba(27, 47, 69, 0.15);
+    }
+
+    .blog .blog-details .meta-bottom i {
+      color: #38618e;
+      display: inline;
+    }
+
+    .blog .blog-details .meta-bottom a {
+      color: rgba(27, 47, 69, 0.8);
+      transition: 0.3s;
+    }
+
+    .blog .blog-details .meta-bottom a:hover {
+      color: var(--color-primary);
+    }
+
+    .blog .blog-details .meta-bottom .cats {
+      list-style: none;
+      display: inline;
+      padding: 0 20px 0 0;
+      font-size: 14px;
+    }
+
+    .blog .blog-details .meta-bottom .cats li {
+      display: inline-block;
+    }
+
+    .blog .blog-details .meta-bottom .tags {
+      list-style: none;
+      display: inline;
+      padding: 0;
+      font-size: 14px;
+    }
+
+    .blog .blog-details .meta-bottom .tags li {
+      display: inline-block;
+    }
+
+    .blog .blog-details .meta-bottom .tags li+li::before {
+      padding-right: 6px;
+      color: var(--color-default);
+      content: ",";
+    }
+
+    .blog .blog-details .meta-bottom .share {
+      font-size: 16px;
+    }
+
+    .blog .blog-details .meta-bottom .share i {
+      padding-left: 5px;
+    }
+
+    .blog .post-author {
+      padding: 20px;
+      margin-top: 30px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .blog .post-author img {
+      max-width: 120px;
+      margin-right: 20px;
+    }
+
+    .blog .post-author h4 {
+      font-weight: 600;
+      font-size: 22px;
+      margin-bottom: 0px;
+      padding: 0;
+      color: var(--color-secondary);
+    }
+
+    .blog .post-author .social-links {
+      margin: 0 10px 10px 0;
+    }
+
+    .blog .post-author .social-links a {
+      color: rgba(27, 47, 69, 0.5);
+      margin-right: 5px;
+    }
+
+    .blog .post-author p {
+      font-style: italic;
+      color: rgba(var(--color-gray-rgb), 0.8);
+      margin-bottom: 0;
+    }
+
+    /*--------------------------------------------------------------
+# Blog Sidebar
+--------------------------------------------------------------*/
+    .blog .sidebar .sidebar-title {
+      font-size: 22px;
+      font-weight: 400;
+      padding: 0;
+      margin: 0;
+      color: var(--color-secondary);
+    }
+
+    .blog .sidebar .sidebar-item+.sidebar-item {
+      margin-top: 40px;
+    }
+
+    .blog .sidebar .search-form form {
+      background: #fff;
+      border: 1px solid rgba(27, 47, 69, 0.2);
+      padding: 3px 10px;
+      position: relative;
+    }
+
+    .blog .sidebar .search-form form input[type=text] {
+      border: 0;
+      padding: 4px;
+      border-radius: 4px;
+      width: calc(100% - 40px);
+    }
+
+    .blog .sidebar .search-form form input[type=text]:focus {
+      outline: none;
+    }
+
+    .blog .sidebar .search-form form button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      border: 0;
+      background: none;
+      font-size: 16px;
+      padding: 0 15px;
+      margin: -1px;
+      background: var(--color-primary);
+      color: #fff;
+      transition: 0.3s;
+      border-radius: 0 4px 4px 0;
+      line-height: 0;
+    }
+
+    .blog .sidebar .search-form form button i {
+      line-height: 0;
+    }
+
+    .blog .sidebar .search-form form button:hover {
+      background: rgba(86, 184, 230, 0.8);
+    }
+
+    .blog .sidebar .categories ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .blog .sidebar .categories ul li+li {
+      padding-top: 10px;
+    }
+
+    .blog .sidebar .categories ul a {
+      color: var(--color-secondary);
+      font-size: 15px;
+    }
+
+    .blog .sidebar .categories ul a:hover {
+      color: var(--color-default);
+    }
+
+    .blog .sidebar .categories ul a span {
+      padding-left: 5px;
+      color: rgba(var(--color-default-rgb), 0.4);
+      font-size: 14px;
+    }
+
+    .blog .sidebar .recent-posts .post-item {
+      display: flex;
+      box-shadow: 0px 0 15px rgba(0, 0, 0, 0.08);
+      padding: 20px;
+    }
+
+    .blog .sidebar .recent-posts .post-item+.post-item {
+      margin-top: 15px;
+    }
+
+    .blog .sidebar .recent-posts img {
+      width: 80px;
+      margin-right: 15px;
+    }
+
+    .blog .sidebar .recent-posts h4 {
+      font-size: 18px;
+      font-weight: 400;
+    }
+
+    .blog .sidebar .recent-posts h4 a {
+      color: var(--color-secondary);
+      transition: 0.3s;
+    }
+
+    .blog .sidebar .recent-posts h4 a:hover {
+      color: var(--color-primary);
+    }
+
+    .blog .sidebar .recent-posts time {
+      display: block;
+      font-style: italic;
+      font-size: 14px;
+      color: rgba(var(--color-default-rgb), 0.4);
+    }
+
+    .blog .sidebar .tags {
+      margin-bottom: -10px;
+    }
+
+    .blog .sidebar .tags ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .blog .sidebar .tags ul li {
+      display: inline-block;
+    }
+
+    .blog .sidebar .tags ul a {
+      color: #38618e !important;
+      font-size: 14px;
+      padding: 6px 14px;
+      margin: 0 6px 8px 0;
+      border: 1px solid rgba(27, 47, 69, 0.15);
+      display: inline-block;
+      border-radius: 50px;
+      transition: 0.3s;
+    }
+
+    .blog .sidebar .tags ul a:hover {
+      color: rgb(105, 67, 255) !important;
+    }
+
+    .blog .sidebar .tags ul a span {
+      padding-left: 5px;
+      color: rgba(27, 47, 69, 0.8);
+      font-size: 14px;
+    }
+
+    /*--------------------------------------------------------------
+# Blog Comments
+--------------------------------------------------------------*/
+    .blog .comments {
+      margin-top: 30px;
+    }
+
+    .blog .comments .comments-count {
+      font-weight: bold;
+    }
+
+    .blog .comments .comment {
+      margin-top: 30px;
+      position: relative;
+    }
+
+    .blog .comments .comment .comment-img {
+      margin-right: 14px;
+    }
+
+    .blog .comments .comment .comment-img img {
+      width: 60px;
+    }
+
+    .blog .comments .comment h5 {
+      font-size: 16px;
+      margin-bottom: 2px;
+    }
+
+    .blog .comments .comment h5 a {
+      font-weight: bold;
+      color: var(--color-default);
+      transition: 0.3s;
+    }
+
+    .blog .comments .comment h5 a:hover {
+      color: var(--color-primary);
+    }
+
+    .blog .comments .comment h5 .reply {
+      padding-left: 10px;
+      color: var(--color-secondary);
+    }
+
+    .blog .comments .comment h5 .reply i {
+      font-size: 20px;
+    }
+
+    .blog .comments .comment time {
+      display: block;
+      font-size: 14px;
+      color: rgba(27, 47, 69, 0.8);
+      margin-bottom: 5px;
+    }
+
+    .blog .comments .comment.comment-reply {
+      padding-left: 40px;
+    }
+
+    .blog .comments .reply-form {
+      margin-top: 30px;
+      padding: 30px;
+    }
+
+    .blog .comments .reply-form h4 {
+      font-weight: bold;
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+
+    .blog .comments .reply-form p {
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    .blog .comments .reply-form input {
+      border-radius: 4px;
+      padding: 10px 10px;
+      font-size: 14px;
+    }
+
+    .blog .comments .reply-form input:focus {
+      box-shadow: none;
+      border-color: rgba(86, 184, 230, 0.8);
+    }
+
+    .blog .comments .reply-form textarea {
+      border-radius: 4px;
+      padding: 10px 10px;
+      font-size: 14px;
+    }
+
+    .blog .comments .reply-form textarea:focus {
+      box-shadow: none;
+      border-color: rgba(86, 184, 230, 0.8);
+    }
+
+    .blog .comments .reply-form .form-group {
+      margin-bottom: 25px;
+    }
+
+    .blog .comments .reply-form .btn-primary {
+      border-radius: 4px;
+      padding: 10px 20px;
+      border: 0;
+      background-color: var(--color-secondary);
+    }
+
+    .blog .comments .reply-form .btn-primary:hover {
+      background-color: rgba(27, 47, 69, 0.8);
+    }
+
+    /*--------------------------------------------------------------
+# Blog Home Pagination
+--------------------------------------------------------------*/
+    .blog .blog-pagination {
+      margin-top: 30px;
+      color: #38618e;
+    }
+
+    .blog .blog-pagination ul {
+      display: flex;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+
+    .blog .blog-pagination li {
+      margin: 0 5px;
+      transition: 0.3s;
+    }
+
+    .blog .blog-pagination li a {
+      color: #2aa5df;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      background: #dbf0fa;
+      padding: 7px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .blog .blog-pagination li.active a,
+    .blog .blog-pagination li:hover a {
+      background: var(--color-primary);
+      color: #fff;
+    }
+    @media (max-width: 1279px) {
+      .blog {
+      padding: 100px 0px !important;
+    }
+    }
+
+    #blogcomment {
+      margin-top: 20px;
+  }
+
+  #blogcomment textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+  }
+
+  #sendBtn {
+      background-color: #3498db;
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+  }
+
+  #comment {
+    list-style-type: none;
+    padding: 0;
+}
+
+.custom-textarea {
+  width: 100%;
+  height: 100px;
+  padding: 10px;
+  font-size: 14px;
+}
+
+.comment-item {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+}
+
+.comment-text {
+    margin-bottom: 10px;
+}
+
+.comment-date {
+    color: #888;
+}
+
+  </style>
+</head>
+
+<body>
+
+  <!-- ============ HEADER SECTION START ========== -->
+
+
+
+  <!-- ======= Blog Details Section ======= -->
+  <section id="blog" class="blog">
+    <!-- <div class="container" data-aos="fade-up"> -->
+
+      <!-- <div class="row g-5"> -->
+
+        <div data-aos="fade-up" data-aos-delay="200">
+
+          <article class="blog-details">
+
+            <div class="post-img">
+              <img src="{{blog_image}}" alt="" class="img-fluid" style="
+              width: -webkit-fill-available;
+          ">
+            </div>
+
+            <h2 class="title">{{blog_heading}}</h2>
+
+            <div class="meta-top">
+              <ul>
+                <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="blog-details.html">{{publisher_name}}</a></li>
+                <li class="d-flex align-items-center">
+                  <i class="bi bi-clock"></i>
+                  {% if posted_on and posted_on is not none %}
+                      <a href="blog-details.html">
+                          <time datetime="{{ posted_on }}">
+                              {{ frappe.utils.format_datetime(posted_on, 'dd-MMM-yyyy HH:mm:ss') }}
+                          </time>
+                      </a>
+                  {% else %}
+                      <span>No date available</span>
+                  {% endif %}
+              </li>
+                <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="blog-details.html">{{comment_len}}
+                    Comments</a></li>
+              </ul>
+            </div><!-- End meta top -->
+
+            <div class="content blog-p">
+              <p>
+                {{blog_content}}
+              </p>
+
+            </div><!-- End post content -->
+
+            <div class="meta-bottom">
+              <i class="bi bi-folder"></i>
+              <ul class="cats">
+                <li><a href="#">Business</a></li>
+              </ul>
+
+              <i class="bi bi-tags"></i>
+              <ul class="tags">
+                <li><a href="#">Creative</a></li>
+                <li><a href="#">Tips</a></li>
+                <li><a href="#">Marketing</a></li>
+              </ul>
+            </div><!-- End meta bottom -->
+
+          </article>
+          <form id="blogcomment">
+            <input type="hidden" value="{{ name }}" name="name">
+            <textarea name="comment_text" placeholder="Add your comment" style="width: 100%; height: 100px; padding: 10px; font-size: 14px;"></textarea>
+            <div class="ql-editor ql-blank" data-gramm="false" contenteditable="true" data-placeholder="Type a reply / comment"></div>
+            <button type="submit" name="send" id="sendBtn" class="btn btn-blue">
+                Submit
+            </button>
+        </form>
+        
+        <br><br>
+        {% if comments %}
+    <h3>Comments:</h3>
+    <br>
+    <ul id="comment">
+        {% for comment in comments %}
+            <li class="comment-item">
+                <p class="comment-text">{{ comment.comment }}</p>
+                {% if comment.commented_on_date %}
+                    <p class="comment-date" style="font-size: small; font-family: 'YourFont', sans-serif;">
+                        {{ comment.commented_on_date.strftime('%d-%b-%Y') }}
+                    </p>
+                {% else %}
+                    <p class="comment-date" style="font-size: small; font-family: 'YourFont', sans-serif;">
+                        No date available
+                    </p>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+
+          <!-- End blog post -->
+
+          <!-- <div class="post-author d-flex align-items-center">
+            <img src="https://placehold.co/400x400" class="rounded-circle flex-shrink-0" alt="">
+            <div>
+              <h4 class="auth-name">Jane Smith</h4>
+              <div class="social-links">
+                <a href="https://twitters.com/#"><i class="bi bi-twitter"></i></a>
+                <a href="https://facebook.com/#"><i class="bi bi-facebook"></i></a>
+                <a href="https://instagram.com/#"><i class="biu bi-instagram"></i></a>
+              </div>
+              <p>
+                Itaque quidem optio quia voluptatibus dolorem dolor. Modi eum sed possimus accusantium. Quas repellat
+                voluptatem officia numquam sint aspernatur voluptas. Esse et accusantium ut unde voluptas.
+              </p>
+            </div>
+          </div>End post author -->
+
+
+        </div>
+
+       <!-- <div class="col-lg-4" data-aos="fade-up" data-aos-delay="400">
+
+          <div class="sidebar ps-lg-4">
+
+            <div class="sidebar-item search-form">
+              <h3 class="sidebar-title">Search</h3>
+              <form action="" class="mt-3">
+                <input type="text">
+                <button type="submit"><i class="bi bi-search"></i></button>
+              </form>
+            </div>
+
+            <div class="sidebar-item categories">
+              <h3 class="sidebar-title">Categories</h3>
+              <ul class="mt-3">
+                <li><a href="#">General <span>(25)</span></a></li>
+                <li><a href="#">Lifestyle <span>(12)</span></a></li>
+                <li><a href="#">Travel <span>(5)</span></a></li>
+                <li><a href="#">Design <span>(22)</span></a></li>
+                <li><a href="#">Creative <span>(8)</span></a></li>
+                <li><a href="#">Educaion <span>(14)</span></a></li>
+              </ul>
+            </div>
+
+            <div class="sidebar-item recent-posts">
+              <h3 class="sidebar-title">Recent Posts</h3>
+
+              <div class="mt-3">
+
+                <div class="post-item mt-3">
+                  <img src="https://placehold.co/200x200" alt="" class="flex-shrink-0">
+                  <div>
+                    <h4><a href="blog-post.html">Nihil blanditiis at in nihil autem</a></h4>
+                    <time datetime="2020-01-01">Jan 1, 2020</time>
+                  </div>
+                </div>
+
+                <div class="post-item">
+                  <img src="https://placehold.co/200x200" alt="" class="flex-shrink-0">
+                  <div>
+                    <h4><a href="blog-post.html">Quidem autem et impedit</a></h4>
+                    <time datetime="2020-01-01">Jan 1, 2020</time>
+                  </div>
+                </div>
+
+                <div class="post-item">
+                  <img src="https://placehold.co/200x200" alt="" class="flex-shrink-0">
+                  <div>
+                    <h4><a href="blog-post.html">Id quia et et ut maxime similique occaecati ut</a></h4>
+                    <time datetime="2020-01-01">Jan 1, 2020</time>
+                  </div>
+                </div>
+
+                <div class="post-item">
+                  <img src="https://placehold.co/200x200" alt="" class="flex-shrink-0">
+                  <div>
+                    <h4><a href="blog-post.html">Laborum corporis quo dara net para</a></h4>
+                    <time datetime="2020-01-01">Jan 1, 2020</time>
+                  </div>
+                </div>
+
+                <div class="post-item">
+                  <img src="https://placehold.co/200x200" alt="" class="flex-shrink-0">
+                  <div>
+                    <h4><a href="blog-post.html">Et dolores corrupti quae illo quod dolor</a></h4>
+                    <time datetime="2020-01-01">Jan 1, 2020</time>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="sidebar-item tags">
+              <h3 class="sidebar-title">Tags</h3>
+              <ul class="mt-3">
+                <li><a href="#">App</a></li>
+                <li><a href="#">IT</a></li>
+                <li><a href="#">Business</a></li>
+                <li><a href="#">Mac</a></li>
+                <li><a href="#">Design</a></li>
+                <li><a href="#">Office</a></li>
+                <li><a href="#">Creative</a></li>
+                <li><a href="#">Studio</a></li>
+                <li><a href="#">Smart</a></li>
+                <li><a href="#">Tips</a></li>
+                <li><a href="#">Marketing</a></li>
+              </ul>
+            </div>
+          -->
+          <!-- </div>
+
+        </div> -->
+      <!-- </div> -->
+
+    <!-- </div> -->
+  </section>
+  <!-- End Blog Details Section -->
+
+  <!-- ====================Whatsapp Floating============ -->
+  <div class="whatsappdesk"><a href="https://wa.me/919513777001" target="_blank" class="whatsapp-color"><i
+        class="fa fa-whatsapp"></i></a></div>
+
+  <div id="main-div">
+    <div id="main-button" class="wave">
+      <i class="fa fa-comments fa-times"></i>
+    </div>
+    <a href="tel:+919513777001" class="telegram-color"><i class="fa fa-phone" aria-hidden="true"></i></a>
+    <a href="mailto:hello@360ithub.com?cc=sales@360ithub.com" class="messenger-color"><i class="fa fa-envelope"></i></a>
+  </div>
+
+  <!-- ============ FOOTER START ========== -->
+  
+
+  <!-- JavaScript	-->
+  <script type="text/javascript" src="assets/custom_app/360ithub/js/jquery-1.11.1.min.js"></script>
+  <script type="text/javascript" src="assets/custom_app/360ithub/js/popper.min.js"></script>
+  <script type="text/javascript" src="assets/custom_app/360ithub/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="assets/custom_app/360ithub/js/slick.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script type="text/javascript" src="assets/custom_app/360ithub/js/wow.min.js"></script>
+  <script type="text/javascript" src="assets/custom_app/360ithub/js/custom.js"></script>
+  <!-- POPUP script  -->
+  <!-- <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var demoBtns = document.querySelectorAll('.btn[data-target="#demoPopup"]');
+      var callbackBtns = document.querySelectorAll('.btn[data-target="#callbackPopup"]');
+      var closeButtons = document.querySelectorAll('.popup .close');
+
+
+      // PSCODE STARTS
+
+      // PSCODE ENDS
+
+      // Add click event listener to all buttons that should trigger the demo popup
+      demoBtns.forEach(function (btn) {
+        btn.addEventListener('click', function (event) {
+          event.preventDefault();
+          document.getElementById('demoPopup').style.display = 'flex';
+        });
+      });
+
+      // Add click event listener to all buttons that should trigger the callback popup
+      callbackBtns.forEach(function (btn) {
+        btn.addEventListener('click', function (event) {
+          event.preventDefault();
+          document.getElementById('callbackPopup').style.display = 'flex';
+        });
+      });
+
+      // Add click event listener to all close buttons in popups
+      closeButtons.forEach(function (btn) {
+        btn.addEventListener('click', function (event) {
+          event.preventDefault();
+          document.getElementById('demoPopup').style.display = 'none';
+        });
+      });
+    });
+  </script> -->
+
+  <!-- PSCODE STARTS -->
+  <!-- <script>
+    // Optionally, you can use JavaScript to enhance the form submission experience
+    document.getElementById("blogcomment").addEventListener("submit", function (event) {
+      event.preventDefault(); // Prevent the default form submission
+
+      // Submit the form using AJAX
+      var formData = new FormData(this);
+
+      fetch(this.action, {
+        method: 'POST',
+        body: formData
+      })
+        .then(response => response.json())
+        .then(data => {
+
+          if (data.success) {
+            // Show SweetAlert for success
+            Swal.fire({
+              icon: 'success',
+              title: 'Success!',
+              text: 'Sent Successfully',
+              timer: 3000, // 10 seconds
+              showConfirmButton: false
+            });
+
+            // Optionally, you can reset the form
+            this.reset();
+            document.getElementById('demoPopup').style.display = 'none';
+          } else {
+            // Show SweetAlert for failure
+            Swal.fire({
+              icon: 'error',
+              title: 'Error!',
+              text: 'Email sending failed: ' + data.error
+            });
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    });
+  </script> -->
+  <!-- Vendor JS Files -->
+  <script src="assets/custom_app/360ithub/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/custom_app/360ithub/assets/vendor/aos/aos.js"></script>
+  <script src="assets/custom_app/360ithub/assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/custom_app/360ithub/assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/custom_app/360ithub/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assets/custom_app/360ithub/assets/vendor/php-email-form/validate.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      "use strict";
+
+      /**
+       * Preloader
+       */
+      const preloader = document.querySelector('#preloader');
+      if (preloader) {
+        window.addEventListener('load', () => {
+          preloader.remove();
+        });
+      }
+
+      /**
+       * Sticky header on scroll
+       */
+      const selectHeader = document.querySelector('#header');
+      if (selectHeader) {
+        document.addEventListener('scroll', () => {
+          window.scrollY > 100 ? selectHeader.classList.add('sticked') : selectHeader.classList.remove('sticked');
+        });
+      }
+
+      /**
+       * Mobile nav toggle
+       */
+      const mobileNavShow = document.querySelector('.mobile-nav-show');
+      const mobileNavHide = document.querySelector('.mobile-nav-hide');
+
+      document.querySelectorAll('.mobile-nav-toggle').forEach(el => {
+        el.addEventListener('click', function (event) {
+          event.preventDefault();
+          mobileNavToogle();
+        })
+      });
+
+      function mobileNavToogle() {
+        document.querySelector('body').classList.toggle('mobile-nav-active');
+        mobileNavShow.classList.toggle('d-none');
+        mobileNavHide.classList.toggle('d-none');
+      }
+
+      /**
+       * Toggle mobile nav dropdowns
+       */
+      const navDropdowns = document.querySelectorAll('.navbar .dropdown > a');
+
+      navDropdowns.forEach(el => {
+        el.addEventListener('click', function (event) {
+          if (document.querySelector('.mobile-nav-active')) {
+            event.preventDefault();
+            this.classList.toggle('active');
+            this.nextElementSibling.classList.toggle('dropdown-active');
+
+            let dropDownIndicator = this.querySelector('.dropdown-indicator');
+            dropDownIndicator.classList.toggle('bi-chevron-up');
+            dropDownIndicator.classList.toggle('bi-chevron-down');
+          }
+        })
+      });
+
+      /**
+       * Scroll top button
+       */
+      const scrollTop = document.querySelector('.scroll-top');
+      if (scrollTop) {
+        const togglescrollTop = function () {
+          window.scrollY > 100 ? scrollTop.classList.add('active') : scrollTop.classList.remove('active');
+        }
+        window.addEventListener('load', togglescrollTop);
+        document.addEventListener('scroll', togglescrollTop);
+        scrollTop.addEventListener('click', window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        }));
+      }
+
+      /**
+       * Initiate glightbox
+       */
+      const glightbox = GLightbox({
+        selector: '.glightbox'
+      });
+
+      /**
+       * Init swiper slider with 1 slide at once in desktop view
+       */
+      new Swiper('.slides-1', {
+        speed: 600,
+        loop: true,
+        autoplay: {
+          delay: 5000,
+          disableOnInteraction: false
+        },
+        slidesPerView: 'auto',
+        pagination: {
+          el: '.swiper-pagination',
+          type: 'bullets',
+          clickable: true
+        },
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        }
+      });
+
+      /**
+       * Init swiper slider with 3 slides at once in desktop view
+       */
+      new Swiper('.slides-3', {
+        speed: 600,
+        loop: true,
+        autoplay: {
+          delay: 5000,
+          disableOnInteraction: false
+        },
+        slidesPerView: 'auto',
+        pagination: {
+          el: '.swiper-pagination',
+          type: 'bullets',
+          clickable: true
+        },
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+        breakpoints: {
+          320: {
+            slidesPerView: 1,
+            spaceBetween: 40
+          },
+
+          1200: {
+            slidesPerView: 3,
+          }
+        }
+      });
+
+      /**
+       * Porfolio isotope and filter
+       */
+      let portfolionIsotope = document.querySelector('.portfolio-isotope');
+
+      if (portfolionIsotope) {
+
+        let portfolioFilter = portfolionIsotope.getAttribute('data-portfolio-filter') ? portfolionIsotope.getAttribute('data-portfolio-filter') : '*';
+        let portfolioLayout = portfolionIsotope.getAttribute('data-portfolio-layout') ? portfolionIsotope.getAttribute('data-portfolio-layout') : 'masonry';
+        let portfolioSort = portfolionIsotope.getAttribute('data-portfolio-sort') ? portfolionIsotope.getAttribute('data-portfolio-sort') : 'original-order';
+
+        window.addEventListener('load', () => {
+          let portfolioIsotope = new Isotope(document.querySelector('.portfolio-container'), {
+            itemSelector: '.portfolio-item',
+            layoutMode: portfolioLayout,
+            filter: portfolioFilter,
+            sortBy: portfolioSort
+          });
+
+          let menuFilters = document.querySelectorAll('.portfolio-isotope .portfolio-flters li');
+          menuFilters.forEach(function (el) {
+            el.addEventListener('click', function () {
+              document.querySelector('.portfolio-isotope .portfolio-flters .filter-active').classList.remove('filter-active');
+              this.classList.add('filter-active');
+              portfolioIsotope.arrange({
+                filter: this.getAttribute('data-filter')
+              });
+              if (typeof aos_init === 'function') {
+                aos_init();
+              }
+            }, false);
+          });
+
+        });
+
+      }
+
+      /**
+       * Animation on scroll function and init
+       */
+      function aos_init() {
+        AOS.init({
+          duration: 800,
+          easing: 'slide',
+          once: true,
+          mirror: false
+        });
+      }
+      window.addEventListener('load', () => {
+        aos_init();
+      });
+
+    });
+  </script>
+  <script>
+    window.frappe = {};
+    frappe.ready_events = [];
+    frappe.ready = function(fn) {
+        frappe.ready_events.push(fn);
+    }
+    window.dev_server = {{ dev_server }};
+    window.socketio_port = {{ (frappe.socketio_port or 9000) }};
+    window.show_language_picker = {{ show_language_picker or 'false' }};
+</script>
+
+{% block base_scripts %}
+<!-- js should be loaded in body! -->
+<script>
+    frappe.boot = {{ boot }}
+    // for backward compatibility of some libs
+    frappe.sys_defaults = frappe.boot.sysdefaults;
+</script>
+{{ include_script('frappe-web.bundle.js') }}
+{% endblock %}
+ 
+{%- for link in web_include_js %}
+{{ include_script(link) }}
+{%- endfor -%}
+ 
+{%- block script %}
+    {% if colocated_js -%}
+        <script>{{ colocated_js }}</script>
+    {%- endif %}
+{%- endblock %}
+<!-- csrf_token -->
+{%- block body_include %}{{ body_include or "" }}{% endblock -%}
+
+<script>
+	
+  $(document).ready(function() {
+   $("#blogcomment").submit(function(event) {
+     event.preventDefault(); // Prevent the default form submission behavior
+ 
+     // Serialize the form data
+     var formData = $(this).serialize();
+          var commentsContainer = $("#comment");
+
+     // Send the data to the server-side method using Frappe's AJAX API (frappe.call)
+     frappe.call({
+       method: "custom_app.custom_app.api.process_form_data_blog",
+       args: {
+         form_data: formData
+       },
+       
+       callback: function(response) {
+         if (!response.exc) {
+           
+ 
+           // Reset the form
+           $("#blogcomment")[0].reset();
+           location.reload();
+           // Use SweetAlert for a more user-friendly notification
+         } else {
+           // Display error using SweetAlert
+           Swal.fire("Error", "Error submitting form data: " + response.exc, "error");
+         }
+       }
+     });
+   });
+ });
+ 
+</script>
+{% endblock %}

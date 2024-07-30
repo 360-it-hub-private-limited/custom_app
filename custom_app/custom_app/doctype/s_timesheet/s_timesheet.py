@@ -144,6 +144,8 @@ class STimesheet(Document):
 		self.update_task_and_project()
 
 	def on_submit(self):
+		if self.total_hours > 16:
+			frappe.throw('Total Working Hours cannot be greater then 24')
 		self.validate_mandatory_fields()
 		self.update_task_and_project()
 
@@ -180,7 +182,7 @@ class STimesheet(Document):
 	def validate_time_logs(self):
 		for data in self.get("time_logs"):
 			self.set_to_time(data)
-			self.validate_overlap(data)
+			# self.validate_overlap(data)
 			self.set_project(data)
 			self.validate_project(data)
 
@@ -294,6 +296,19 @@ class STimesheet(Document):
 	def update_time_rates(self, ts_detail):
 		if not ts_detail.is_billable:
 			ts_detail.billing_rate = 0.0
+	# def before_save(doc):
+	# 	# Fetch the existing document from the database
+	# 	existing_doc = frappe.get_doc(doc.doctype, doc.name)
+
+	# 	# Get the length of the child table in the existing document
+	# 	existing_length = len(existing_doc.get('time_logs', []))
+
+	# 	# Get the length of the child table in the current document being saved
+	# 	current_length = len(doc.get('time_logs', []))
+
+	# 	# Compare the lengths
+	# 	if current_length != existing_length:
+	# 		frappe.throw(f"Can't delete time_logs")
 
 
 @frappe.whitelist()
@@ -560,3 +575,65 @@ def get_list_context(context=None):
 		"get_list": get_timesheets_list,
 		"row_template": "templates/includes/timesheet/timesheet_row.html",
 	}
+
+
+
+from datetime import datetime
+
+@frappe.whitelist()
+def create_timesheet_from_task(task_id, description, start_time=None, end_time=None, hours=None):
+    try:
+        # Fetch current session's user ID (assuming it's the employee ID)
+        session_user = frappe.session.user
+        today_date = frappe.utils.today()
+        
+        # Fetch employee based on session user
+        employee = frappe.db.get_value('Employee', {'user_id': session_user}, 'name')
+
+        if not employee:
+            frappe.throw(_('Employee not found for the current session user.'))
+
+        # Check if timesheet for today already exists
+        existing_timesheet = frappe.db.get_value('S Timesheet', 
+                                                 {'employee': employee, 'date': today_date}, 
+                                                 'name')
+
+        if existing_timesheet:
+            # Load existing timesheet document
+            timesheet = frappe.get_doc('S Timesheet', existing_timesheet)
+        else:
+            # Create new timesheet document
+            timesheet = frappe.new_doc('S Timesheet')
+            timesheet.employee = employee
+            timesheet.date = today_date
+
+        # Add task to time_logs child table
+        time_log = timesheet.append('time_logs', {
+            'activity_type': 'Execution',
+            'task': task_id,
+            'description': description,
+            'start_time': start_time,
+            'end_time': end_time
+        })
+
+        # Calculate hours if start_time and end_time are provided
+        if start_time and end_time:
+            hours = calculate_hours(start_time, end_time)
+            time_log.hours = hours
+
+        # Save the timesheet document
+        timesheet.save(ignore_permissions=True)
+
+        return _('Timesheet updated successfully.')
+
+    except Exception as e:
+        frappe.log_error(frappe.get_traceback(), _('Create Timesheet Error'))
+        frappe.throw(_('Failed to update timesheet: {0}').format(str(e)))
+
+def calculate_hours(start_time, end_time):
+    # Function to calculate hours between start time and end time
+    start = datetime.strptime(start_time, '%H:%M:%S')  # Include seconds in format
+    end = datetime.strptime(end_time, '%H:%M:%S')      # Include seconds in format
+    duration = end - start
+    hours = duration.total_seconds() / 3600  # Convert seconds to hours
+    return hours

@@ -1,0 +1,73 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-02-28 18:47:47.966233",
+ "default_view": "List",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "blog_id",
+  "commented_on_date",
+  "commented_by",
+  "comment"
+ ],
+ "fields": [
+  {
+   "fieldname": "blog_id",
+   "fieldtype": "Link",
+   "label": "Blog Id",
+   "options": "Blogs"
+  },
+  {
+   "default": "Today",
+   "fieldname": "commented_on_date",
+   "fieldtype": "Date",
+   "label": "Commented On (Date)"
+  },
+  {
+   "fieldname": "commented_by",
+   "fieldtype": "Data",
+   "label": "Commented By"
+  },
+  {
+   "fieldname": "comment",
+   "fieldtype": "Small Text",
+   "label": "Comment"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-02-28 19:02:48.536608",
+ "modified_by": "Administrator",
+ "module": "custom_app",
+ "name": "Blog Comment",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Guest",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

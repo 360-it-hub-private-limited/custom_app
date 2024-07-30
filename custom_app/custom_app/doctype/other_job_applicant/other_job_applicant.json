@@ -1,0 +1,318 @@
+{
+ "actions": [],
+ "allow_import": 1,
+ "autoname": "autoincrement",
+ "creation": "2024-04-19 15:07:06.685902",
+ "default_view": "List",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "name1",
+  "email",
+  "mobile_no",
+  "current_address",
+  "permanent_address_check",
+  "preferred_method_of_contact",
+  "column_break_zruh",
+  "status",
+  "resume_url",
+  "resume",
+  "permanent_address",
+  "employment_desired_section_section",
+  "position_you_are_applying_for",
+  "column_break_mjxi",
+  "type_of_employment",
+  "column_break_jsuq",
+  "date_available_to_start_work",
+  "education_section_section",
+  "highest_level_of_education_completed",
+  "year_of_pass_out",
+  "column_break_stuz",
+  "name_of_the_last_schoolcollegeuniversity",
+  "column_break_jfsf",
+  "relevant_certifications_or_training",
+  "section_break_wvlm",
+  "job_type",
+  "last_ctc",
+  "desired_salary",
+  "job_title_and_primary_duties",
+  "column_break_mcmp",
+  "start_date_of_employment",
+  "end_date_of_employment",
+  "reason_for_leaving",
+  "currentlast_employer",
+  "skills_and_qualification_section",
+  "specialized_skillstraining_or_qualifications",
+  "column_break_dyql",
+  "list_any_programming_or_software_or_tools_you_are_proficient_in",
+  "column_break_uohf",
+  "language_proficiencies",
+  "additional_questions_section_section",
+  "explain_any_gaps_in_your_employment_history",
+  "agree"
+ ],
+ "fields": [
+  {
+   "fieldname": "name1",
+   "fieldtype": "Data",
+   "label": "Name"
+  },
+  {
+   "fieldname": "email",
+   "fieldtype": "Data",
+   "label": "Email Id"
+  },
+  {
+   "fieldname": "mobile_no",
+   "fieldtype": "Data",
+   "label": "Mobile No"
+  },
+  {
+   "fieldname": "current_address",
+   "fieldtype": "Small Text",
+   "label": "Current Address"
+  },
+  {
+   "default": "0",
+   "description": "Please Check here If Permanent Address is same as Current address",
+   "fieldname": "permanent_address_check",
+   "fieldtype": "Check",
+   "label": "Permanent Address"
+  },
+  {
+   "fieldname": "preferred_method_of_contact",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Preferred Method of Contact",
+   "options": "Phone\nEmail"
+  },
+  {
+   "fieldname": "permanent_address",
+   "fieldtype": "Small Text",
+   "label": "Permanent Address"
+  },
+  {
+   "fieldname": "column_break_zruh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "resume_url",
+   "fieldtype": "Data",
+   "label": "Linkedin Url"
+  },
+  {
+   "fieldname": "resume",
+   "fieldtype": "Attach",
+   "label": "Resume"
+  },
+  {
+   "fieldname": "employment_desired_section_section",
+   "fieldtype": "Section Break",
+   "label": "Employment Desired Section"
+  },
+  {
+   "description": "Short Answer",
+   "fieldname": "position_you_are_applying_for",
+   "fieldtype": "Data",
+   "label": "Position You are Applying For"
+  },
+  {
+   "fieldname": "type_of_employment",
+   "fieldtype": "Select",
+   "label": "Type Of Employment",
+   "options": "Full-time\nPart-time\nTemporary"
+  },
+  {
+   "fieldname": "date_available_to_start_work",
+   "fieldtype": "Date",
+   "label": "Date Available to Start Work"
+  },
+  {
+   "fieldname": "education_section_section",
+   "fieldtype": "Section Break",
+   "label": "Education Section"
+  },
+  {
+   "fieldname": "highest_level_of_education_completed",
+   "fieldtype": "Data",
+   "label": "Highest Level Of Education Completed"
+  },
+  {
+   "fieldname": "year_of_pass_out",
+   "fieldtype": "Data",
+   "label": "Year Of Pass Out"
+  },
+  {
+   "fieldname": "column_break_stuz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "name_of_the_last_schoolcollegeuniversity",
+   "fieldtype": "Small Text",
+   "label": "Name Of the Last School/college/University"
+  },
+  {
+   "fieldname": "relevant_certifications_or_training",
+   "fieldtype": "Small Text",
+   "label": "Relevant Certifications or Training"
+  },
+  {
+   "fieldname": "section_break_wvlm",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "job_type",
+   "fieldtype": "Select",
+   "label": "Job Type",
+   "options": "Intern/Fresher\nExperienced"
+  },
+  {
+   "depends_on": "eval:doc.job_type == 'Experienced'\n",
+   "fieldname": "last_ctc",
+   "fieldtype": "Data",
+   "label": "Last CTC"
+  },
+  {
+   "depends_on": "eval:doc.job_type == 'Experienced'\n",
+   "fieldname": "desired_salary",
+   "fieldtype": "Data",
+   "label": "Desired Salary"
+  },
+  {
+   "depends_on": "eval:doc.job_type == 'Experienced'\n",
+   "fieldname": "currentlast_employer",
+   "fieldtype": "Small Text",
+   "label": "Current/last Employer"
+  },
+  {
+   "depends_on": "eval:doc.job_type == 'Experienced'\n",
+   "fieldname": "job_title_and_primary_duties",
+   "fieldtype": "Small Text",
+   "label": "Job Title and Primary Duties"
+  },
+  {
+   "fieldname": "column_break_mcmp",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.job_type == 'Experienced'\n",
+   "fieldname": "start_date_of_employment",
+   "fieldtype": "Date",
+   "hidden": 1,
+   "label": "Start Date Of Employment"
+  },
+  {
+   "depends_on": "eval:doc.job_type == 'Experienced'\n",
+   "fieldname": "end_date_of_employment",
+   "fieldtype": "Date",
+   "hidden": 1,
+   "label": "End Date Of Employment"
+  },
+  {
+   "depends_on": "eval:doc.job_type == 'Experienced'\n",
+   "fieldname": "reason_for_leaving",
+   "fieldtype": "Small Text",
+   "label": "Reason For Leaving"
+  },
+  {
+   "fieldname": "skills_and_qualification_section",
+   "fieldtype": "Section Break",
+   "label": "Skills and Qualification"
+  },
+  {
+   "description": "Describe any Specialized Skills,Training or Qualifications You have",
+   "fieldname": "specialized_skillstraining_or_qualifications",
+   "fieldtype": "Small Text",
+   "label": "Specialized Skills,Training or Qualifications"
+  },
+  {
+   "fieldname": "list_any_programming_or_software_or_tools_you_are_proficient_in",
+   "fieldtype": "Small Text",
+   "label": "List any Programming or Software or Tools You are Proficient in"
+  },
+  {
+   "fieldname": "language_proficiencies",
+   "fieldtype": "Data",
+   "label": "Language Proficiencies"
+  },
+  {
+   "fieldname": "additional_questions_section_section",
+   "fieldtype": "Section Break",
+   "label": "Additional Questions Section"
+  },
+  {
+   "fieldname": "explain_any_gaps_in_your_employment_history",
+   "fieldtype": "Small Text",
+   "label": "Explain Any gaps In Your Employment History"
+  },
+  {
+   "default": "0",
+   "description": "I certify that the information contained in this application is true and complete. I understand that false information may be grounds for not hiring me or for immediate termination of employment at any point in the future if I am hired. I authorize the verification of any or all information listed above.",
+   "fieldname": "agree",
+   "fieldtype": "Check",
+   "label": "Agree"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Open\nReviewed"
+  },
+  {
+   "fieldname": "column_break_mjxi",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_jsuq",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_jfsf",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_dyql",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_uohf",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "links": [],
+ "modified": "2024-04-20 09:44:31.632412",
+ "modified_by": "Administrator",
+ "module": "custom_app",
+ "name": "Other Job Applicant",
+ "naming_rule": "Autoincrement",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Guest",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

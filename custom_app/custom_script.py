@@ -156,3 +156,85 @@ def update_todo(todo_name, updated_values):
     todo.update(updated_values_dict)
     todo.save()
     return True
+    
+    
+    
+    
+
+@frappe.whitelist()
+def get_description(designation):
+    # Fetch the description based on the provided designation
+    description = frappe.get_value("Designation", filters={"name": designation}, fieldname="description")
+
+    return description
+
+
+
+
+
+
+@frappe.whitelist()
+def check_duplicate_email(job_title, email):
+    # Check if an application with the same job title and email already exists
+    existing_application = frappe.get_all("Job Applicant", filters={"job_title": job_title, "email_id": email})
+    
+    if existing_application:
+        return True  # Duplicate email found
+    else:
+        return False  # No duplicate email found
+        
+        
+        
+
+import frappe
+from frappe import _
+
+@frappe.whitelist(allow_guest=True)
+def validate_job_application(job_title, email):
+    # Check if an application with the same job title and email already exists
+    existing_application = frappe.get_all("Job Applicant", filters={"job_title": job_title, "email_id": email})
+    
+    if existing_application:
+        return "An application with this job title and email already exists."
+    else:
+        return None
+
+
+
+
+
+
+
+@frappe.whitelist()
+def get_skills_by_designation(designation):
+    # Fetch the Designation document
+    designation_doc = frappe.get_doc("Designation", designation)
+    
+    skills_with_descriptions = []
+
+    # Iterate over the child table 'skills' in the Designation document
+    for skill_row in designation_doc.get("skills"):
+        skill_name = skill_row.skill
+
+        # Fetch descriptions for each skill from the 'Skill' DocType
+        skill_details = frappe.get_value("Skill", {"name": skill_name}, ["name", "description"], as_dict=True)
+        if skill_details:
+            skills_with_descriptions.append(skill_details)
+
+    return skills_with_descriptions
+
+
+
+@frappe.whitelist(allow_guest=True)
+def get_valid_skill_options():
+    # Fetch valid options from the Skill doctype
+    skill_names = frappe.get_all("Skill", fields=["name"])
+    return [skill.get("name") for skill in skill_names]
+    
+    
+    
+@frappe.whitelist()
+def get_all_skills():
+    skills = frappe.get_all("Skill", fields=["name", "skill_name"])
+    return skills
+

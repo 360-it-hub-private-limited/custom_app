@@ -89,6 +89,70 @@ class SProject(Document):
 	def before_print(self, settings=None):
 		self.onload()
 
+
+	@frappe.whitelist()
+	def before_save(doc):
+		if doc.userss:
+			try:
+				# Fetch currently shared users for S Project
+				current_shared_users_project = frappe.get_all('DocShare', filters={'share_doctype': 'S Project', 'share_name': doc.name})
+				print('Current shared users for S Project:', current_shared_users_project)
+				
+				# Remove all existing share access for S Project
+				for share in current_shared_users_project:
+					share_name = share['name']
+					print(f"Removing share access for S Project document {share_name}")
+					frappe.delete_doc('DocShare', share_name)
+
+				# Fetch currently shared users for associated S Tasks
+				tasks = frappe.get_all('S Task', filters={'project': doc.name})
+				for task in tasks:
+					current_shared_users_task = frappe.get_all('DocShare', filters={'share_doctype': 'S Task', 'share_name': task.name})
+					print(f'Current shared users for S Task {task.name}:', current_shared_users_task)
+					
+					# Remove all existing share access for each S Task
+					for share_task in current_shared_users_task:
+						share_name_task = share_task['name']
+						print(f"Removing share access for S Task document {share_name_task}")
+						frappe.delete_doc('DocShare', share_name_task)
+
+				# frappe.show_alert(_("Removed existing share access for the document."))
+				frappe.msgprint(
+                msg=_("Removed existing share access for the document."),
+                alert=True,
+                indicator='green'
+            )
+			except Exception as e:
+				frappe.log_error("Error removing share access for document {0}: {1}".format(doc.name, str(e)))
+				frappe.throw(_("Failed to remove existing share access. Please try again."))
+
+
+	@frappe.whitelist()
+	def on_update(doc):
+		if doc.userss:
+			try:
+				# Share with new users after save for S Project
+				for row in doc.userss:
+					user = row.user
+					frappe.share.add('S Project', doc.name, user, read=1, write=0)
+					
+					# Share with new users after save for associated S Tasks
+					tasks = frappe.get_all('S Task', filters={'project': doc.name})
+					for task in tasks:
+						frappe.share.add('S Task', task.name, user, read=1, write=1)
+
+				# frappe.msgprint(_("Document shared with assigned users."))
+				frappe.msgprint(
+                msg=_("Document shared with assigned users."),
+                alert=True,
+                indicator='green'
+            )
+			except Exception as e:
+				frappe.log_error("Error sharing document {0} with users: {1}".format(doc.name, str(e)))
+				frappe.throw(_("Failed to share document with assigned users. Please try again."))
+
+
+
 	def validate(self):
 		if not self.is_new():
 			self.copy_from_template()

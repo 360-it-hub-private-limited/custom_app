@@ -1,99 +1,5 @@
-<!doctype html>
-<html>
-
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>360 IT Hub</title>
-<link rel="icon" type="image/png" href="assets/custom_app/360ithub/images/favicon.png">
-<link href="assets/custom_app/360ithub/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" href="assets/custom_app/360ithub/css/animate.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="assets/custom_app/360ithub/css/themify-icons.css">
-<link href="assets/custom_app/360ithub/css/slick.css" rel="stylesheet" type="text/css" />
-<link href="assets/custom_app/360ithub/css/flaticon.css" rel="stylesheet" type="text/css" />
-<link href="assets/custom_app/360ithub/css/styles.css" rel="stylesheet" type="text/css" />
-<link href="assets/custom_app/360ithub/css/responsive.css" rel="stylesheet" type="text/css" />
-</head>
-
-<body>
-<!-- ============ HEADER SECTION START ========== -->
-<header>
-<!-- black strip  -->
-<div class="contact-container">
-	<div class="contact-info">
-		<p>Have any question?</p>
-		<a href="tel:+91 95137 77001" class="phone"> <i class="fa fa-phone"></i> +91 95137 77001</a>
-		<a href="mailto:hello@360ithub.com?cc=sales@360ithub.com" class="email"><i class="fa fa-envelope"></i> hello@360ithub.com</a>
-		<a href="#" class="email"><i class="fa fa-skype" aria-hidden="true"></i> 360ithub</a>
-	</div>
-	<div class="social-media-icons">
-		<a href="https://www.facebook.com/360ithub" target="_blank" class="icon-link"><i class="fa fa-facebook"></i></a>
-		<a href="https://www.instagram.com/360ithub/" target="_blank" class="icon-link"><i class="fa fa-instagram"></i></a>
-		<a href="https://twitter.com/360ithub" target="_blank" class="icon-link"><i class="fa fa-twitter"></i></a>
-		<a href="https://www.linkedin.com/company/360ithub" target="_blank" class="icon-link"><i class="fa fa-linkedin"></i></a>
-	</div>
-</div>
-	<nav class="navbar navbar-expand-md" style="background: #fff;">
-		<div class="container">
-			<!-- Brand -->
-			<a class="navbar-brand" href="index.html">
-				<img src="assets/custom_app/360ithub/images/logo.svg" alt="" /> </a>
-			</a>
-
-			<!-- Toggler/collapsibe Button -->
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<!-- Navbar links -->
-			<div class="collapse navbar-collapse" id="collapsibleNavbar">
-				<ul class="navbar-nav ml-auto">
-					<li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-							About
-						</a>
-						<div class="dropdown-menu">
-							<a class="dropdown-item" href="about.html"><img src="assets/custom_app/360ithub/images/Team-menu.svg"
-									alt="" /> Our Team</a>
-							<a class="dropdown-item" href="partners.html"><img src="assets/custom_app/360ithub/images/Partners-menu (2).svg"
-									alt="" /> Our Partners</a>
-							<a class="dropdown-item" href="talent.html"><img src="assets/custom_app/360ithub/images/talentfromus-menu.svg"
-									alt="" /> Hire a Talent From US</a>
-							<!-- <a class="dropdown-item" href="http://192.168.1.116:8021/job_application/new"><img src="assets/custom_app/360ithub/images/talentfromus-menu.svg"
-								alt="" /> Careers</a> -->
-							<!-- <a class="dropdown-item" href="http://192.168.1.116:8021/issue/list"><img src="assets/custom_app/360ithub/images/talentfromus-menu.svg"
-								alt="" /> Issue</a> -->
-						</div>
-					</li>
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-							Services
-						</a>
-						<div class="dropdown-menu">
-							<a class="dropdown-item" href="erp-implementation.html"><img src="assets/custom_app/360ithub/images/menu1.svg"
-									alt="" /> ERP Implementation</a>
-							<a class="dropdown-item" href="mobile-app-development.html"><img src="assets/custom_app/360ithub/images/menu2.svg"
-									alt="" /> Mobile App Development</a>
-							<a class="dropdown-item" href="website-development.html"><img src="assets/custom_app/360ithub/images/menu3.svg"
-									alt="" /> Website Development</a>
-							<a class="dropdown-item" href="E-commerce.html"><img src="assets/custom_app/360ithub/images/menu4.svg"
-										alt="" /> E-Commerce Solutions</a>
-							<a class="dropdown-item nobdr" href="ui-ux-solutions.html"><img src="assets/custom_app/360ithub/images/menu5.svg"
-										alt="" /> UI/UX Solutions</a>
-						</div>
-					</li>
-					<!-- <li class="nav-item"><a class="nav-link" href="blogs.html">Blogs</a></li> -->
-					<li class="nav-item"><a class="nav-link" href="contacts.html">Contact</a></li>
-					<li class="nav-item"><a class="nav-link" href="/job_listing.html">Careers</a></li>
-				</ul>
-			</div>
-			<a class="frappe-brand" href="index.html">
-				<img src="assets/custom_app/360ithub/images/frappe.png" alt="" /> </a>
-			</a>
-		</div>
-	</nav>
-</header>
+{% extends "templates/custom_web.html" %}
+{% block content %}
 
 <!-- ============ CUSTOM SOFTWARE SOLUTION SECTION START ========== -->
 <section class="heroarea clearfix">
@@ -318,14 +224,14 @@
 </section>
 
 <!-- ================================Frappe Partner=============================== -->
-<sectio class="frappepartner">
+<section class="frappepartner">
 	<div class="frappe-partner">
 		<img src="assets/custom_app/360ithub/images/frappe.png" alt="Frappe Partner" class="partner-image">
 		<p class="partner-description">Collaborating with Frappe's Certified Partners guarantees that your ERP platform receives dedicated and proficient support from a skilled and knowledgeable team!</p>
 		<a href="#" data-target="#demoPopup" class="btn btn-blue wow fadeInUp" data-wow-duration="3s"
 						data-wow-delay="1s"><span>Call Us Now</span></a>
 	  </div>
-</sectio>
+</section>
 
 <!-- ============ SOLUTION SECTION START ========== -->
 <section class="allsloution clearfix">
@@ -703,20 +609,23 @@
 		<div class="maintitle">
 			<h2 class="wow fadeInDown" data-wow-duration="1s">From <span>The Blog</span></h2>
 		</div>
+		
 		<div class="slider slider-blog">
-			<div>
-				<div class="blogcard clearfix bg-white">
-					<div class="blog-thumb"><img src="assets/custom_app/360ithub/images/blog-1.png" class="img-fluid" alt="ERP" /></div>
-					<div class="p-2">
-						<h2><a href="#">Top Trends must know in 2023 for ERP healthcare industry</a></h2>
-						<p>Write an amazing description in this dedicated card section. Each word counts. </p>
-						<p><a href="#" class="btn btn-blue yallow"><span>Read more <ion-icon
-										name="arrow-forward"></ion-icon></span></a></p>
-
+			{% for blog in blog %}
+				<div>
+					<div class="blogcard clearfix bg-white">
+						<div class="blog-thumb"><img src="{{blog.blog_image}}" class="img-fluid" alt="img" /></div>
+						<div class="p-2">
+							<h2><a href="blog_details?id={{ blog.name }}" >{{blog.blog_heading}}</a></h2>
+							<!-- <p>{{ blog.blog_content  }}</p> -->
+							<p><a href="blog_details?id={{ blog.name }}" class="btn btn-blue yallow"><span>Read more <ion-icon
+											name="arrow-forward"></ion-icon></span></a></p>
+						</div>
 					</div>
 				</div>
-			</div>
-			<div>
+			{% endfor %}
+
+			<!-- <div>
 				<div class="blogcard clearfix bg-white">
 					<div class="blog-thumb"><img src="assets/custom_app/360ithub/images/blog-2.png" class="img-fluid" alt="ERP" /></div>
 					<div class="p-2">
@@ -745,7 +654,7 @@
 						<p><a href="#" class="btn btn-blue">Read more</a></p>
 					</div>
 				</div>
-			</div>
+			</div> -->
 		</div>
 	</div>
 </section>
@@ -762,85 +671,7 @@
 </div>	
 
 <!-- ============ FOOTER START ========== -->
-<footer>
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-3 col-md-6">
-				<p><img src="assets/custom_app/360ithub/images/logo.svg" alt="360 IT Hub Pvt" /></p>
-				<p>360 IT Hub Pvt. Ltd. delivers innovative IT solutions, from software development to web design
-					and digital marketing, ensuring tailored services for diverse business needs.</p>
-				<div class="socialfooter clearfix">
-					<a href="https://www.facebook.com/360ithub/" target="_blank" class="fa fa-facebook"></a>
-					<a href="https://www.linkedin.com/company/360ithub/mycompany/" target="_blank"
-						class="fa fa-linkedin"></a>
-					<a href="https://www.instagram.com/360ithub/" target="_blank" class="fa fa-instagram"></a>
-					<a href="https://twitter.com/360ithub" target="_blank" class="fa fa-twitter"></a>
-					<!-- <a href="#" class="fa fa-youtube"></a> -->
-				</div>
-			</div>
-			<div class="col-lg-2 col-md-3">
-				<h2>Product</h2>
-				<ul>
-					<li><a href="#">Features</a></li>
-					<li><a href="#">Case studies</a></li>
-					<li><a href="#">Reviews</a></li>
-					<li><a href="#">Updates</a></li>
-				</ul>
-			</div>
-			<div class="col-lg-2 col-md-3">
-				<h2>Company</h2>
-				<ul>
-					<li><a href="about.html">About</a></li>
-					<li><a href="contacts.html">Contact us</a></li>
-					<li><a href="careers.html">Careers</a></li>
-					<li><a href="culture.html">Culture</a></li>
-					<li><a href="blogs.html">Blog</a></li>
-				</ul>
-			</div>
-			<div class="col-lg-2 col-md-3">
-				<h2>Support</h2>
-				<ul>
-					<li><a href="#">Getting started</a></li>
-					<li><a href="#">Help center</a></li>
-					<li><a href="#">Server status</a></li>
-					<li><a href="#">Report a bug</a></li>
-					<li><a href="#">Chat support</a></li>
-				</ul>
-			</div>
-			<div class="col-lg-3 col-md-6">
-				<h2>Contact us</h2>
-				<div class="foot-work position-relative">
-					<span class="flaticon-mail-inbox-app"></span>
-					<a href="mailto:hello@360ithub.com?cc=sales@360ithub.com" target="_blank">hello@360ithub.com</a>
-				</div>
-				<div class="foot-work position-relative">
-					<span class="flaticon-phone"></span>
-					<a href="tel:+91 95137 77001" target="_blank">+91 95137 77001</a>
-				</div>
-				<div class="foot-work position-relative">
-					<span class="flaticon-maps"></span>
-					<a href="https://www.google.com/maps/place/360+IT+HUB+PRIVATE+LIMITED/@12.9123141,77.6237422,14.32z/data=!4m6!3m5!1s0x3bae15e76e62354d:0x28bc870ecf5535b6!8m2!3d12.9156626!4d77.621292!16s%2Fg%2F11d_ysfvq2?entry=ttu"
-						target="_blank">228, SAVIRAM, 1ST CROSS, 39th Main Rd, KAS Officers Colony, BTM 2nd Stage,
-						Bengaluru, Karnataka
-						560068</a>
 
-				</div>
-			</div>
-		</div>
-		<div class="copyright">
-			<div class="row">
-				<div class="col-lg-6 col-md-6 col-12">
-					Copyright © 2023 360 IT HUB
-				</div>
-				<div class="col-lg-6 col-md-6 col-12">
-					<div class="allright">All Rights Reserved | <a href="terms-and-conditions.html">Terms and
-							Conditions</a> | <a href="/360-html-code/terms-and-conditions.html">Privacy Policy</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</footer>
 
 <!-- JavaScript	-->
 <script type="text/javascript" src="assets/custom_app/360ithub/js/jquery-1.11.1.min.js"></script>
@@ -888,75 +719,7 @@
 	});
 </script>
 
-<!-- PSCODE STARTS -->
-<script>
-    window.frappe = {};
-    frappe.ready_events = [];
-    frappe.ready = function(fn) {
-        frappe.ready_events.push(fn);
-    }
-    window.dev_server = {{ dev_server }};
-    window.socketio_port = {{ (frappe.socketio_port or 9000) }};
-    window.show_language_picker = {{ show_language_picker or 'false' }};
-</script>
 
-{% block base_scripts %}
-<!-- js should be loaded in body! -->
-<script>
-    frappe.boot = {{ boot }}
-    // for backward compatibility of some libs
-    frappe.sys_defaults = frappe.boot.sysdefaults;
-</script>
-{{ include_script('frappe-web.bundle.js') }}
-{% endblock %}
- 
-{%- for link in web_include_js %}
-{{ include_script(link) }}
-{%- endfor -%}
- 
-{%- block script %}
-    {% if colocated_js -%}
-        <script>{{ colocated_js }}</script>
-    {%- endif %}
-{%- endblock %}
-<!-- csrf_token -->
-{%- block body_include %}{{ body_include or "" }}{% endblock -%}
-<!-- PSCODE STARTS -->
-
- <script>
-	/* $(document).ready(function () {
-		 $("#contact-form").submit(function (event) {
-			 event.preventDefault();
-			 $("#successMessage").hide();
-			 $("#errorMessage").hide();
-			 $.ajax({
-				 type: "POST",
-				 url: "process_form.php",
-				 data: $("#contact-form").serialize(),
-				 success: function (response) {
-					 if (response === "success") {
-						 // Clear form fields
-						 $("#contact-form")[0].reset();
-						 // Hide error message
-						 $("#errorMessage").hide();
-						 // Show success message
-						 $("#successMessage").show();
-					 } else {
-						 // Hide success message
-						 $("#successMessage").hide();
-						 // Show error message
-						 $("#errorMessage").show();
-					 }
-				 },
-				 error: function () {
-					 $("#errorMessage").show();
-				 }
-			 });
-		 });
-	 }); */
-
-
- </script>
  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
  <script>
@@ -993,6 +756,4 @@
 		});
 	});
  </script>
-</body>
-
-</html>
+ {% endblock %}
