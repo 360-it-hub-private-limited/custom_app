@@ -296,6 +296,19 @@ class STimesheet(Document):
 	def update_time_rates(self, ts_detail):
 		if not ts_detail.is_billable:
 			ts_detail.billing_rate = 0.0
+	# def before_save(doc):
+	# 	# Fetch the existing document from the database
+	# 	existing_doc = frappe.get_doc(doc.doctype, doc.name)
+
+	# 	# Get the length of the child table in the existing document
+	# 	existing_length = len(existing_doc.get('time_logs', []))
+
+	# 	# Get the length of the child table in the current document being saved
+	# 	current_length = len(doc.get('time_logs', []))
+
+	# 	# Compare the lengths
+	# 	if current_length != existing_length:
+	# 		frappe.throw(f"Can't delete time_logs")
 
 
 @frappe.whitelist()

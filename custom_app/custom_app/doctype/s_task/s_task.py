@@ -79,6 +79,11 @@ class STask(NestedSet):
 			return ret
 
 	def validate(self):
+		# if self.workflow_disable == 1:
+		# 	self.disable_workflow()
+		# for row in self.work_log_table:
+		# 	if row.is_new() and row.has_been_deleted:
+		# 		frappe.throw("You cannot delete rows from this child table.")
 		# self.validate_dates()
 		self.validate_progress()
 		self.validate_status()
@@ -86,6 +91,8 @@ class STask(NestedSet):
 		self.validate_dependencies_for_template_task()
 		self.validate_completed_on()
 
+
+	
 	def validate_dates(self):
 		self.validate_from_to_dates("exp_start_date", "exp_end_date")
 		self.validate_from_to_dates("act_start_date", "act_end_date")
@@ -303,8 +310,45 @@ class STask(NestedSet):
 				self.db_set("status", "Overdue", update_modified=False)
 				self.update_project()
 
+
 	def before_save(doc):
+
+		# Check if the user has the System Manager role
+		user_roles = frappe.get_roles(frappe.session.user)
+		if doc.check_work_log != 0:
+			# Check if the user has the System Manager role
+			if 'System Manager' not in user_roles:
+				if doc.get('name'):
+					try:
+						# Fetch the existing document from the database
+						existing_doc = frappe.get_doc(doc.doctype, doc.name)
+						existing_child_records = {row.name: row for row in existing_doc.get('work_log_table', [])}
+					except frappe.DoesNotExistError:
+						existing_child_records = {}
+						frappe.log_error(f"Document {doc.name} does not exist.", "Document Fetch Error")
+						return  # Exit function if document is not found
+
+					# Get the current child records in the document being saved
+					current_child_records = {row.name: row for row in doc.get('work_log_table', [])}
+
+					# Determine which records have been deleted
+					deleted_records = {row_id: row for row_id, row in existing_child_records.items() if row_id not in current_child_records}
+
+					if deleted_records:
+						# Store deleted records in cache or session
+						frappe.cache().hset('deleted_records', doc.name, frappe.as_json(deleted_records))
+						
+						# Restore missing rows
+						for row_id, row in deleted_records.items():
+							# Re-add the deleted rows to the document
+							doc.append('work_log_table', row)
+
+						# Optional: Clear the cache after restoration
+						frappe.cache().hdel('deleted_records', doc.name)
 		
+		# for row in doc.get('work_log_table'):
+		# 	# if row.get_docstatus() == 2:  # 2 indicates deleted rows
+		# 	frappe.throw("Deleting rows is not allowed.")
 		if doc.task_status=="Assigned" and doc.users is None:
 			frappe.throw(f"Task has to be assigned to a person before moving forward to task status {doc.task_status}")
 

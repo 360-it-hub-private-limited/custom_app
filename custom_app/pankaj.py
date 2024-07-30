@@ -681,7 +681,7 @@ def add_work_logs_to_timesheet_for_user(user):
     for task in tasks:
         task_work_logs = frappe.get_all(
             'S Task Work Log',
-            filters={'parent': task['name'],'date_time':today},
+            filters={'parent': task['name'],'date_time':today,'deleted':0,'user':user},
             fields=['start_time', 'end_time', 'duration', 'description']
         )
         
@@ -798,3 +798,32 @@ def add_work_logs_to_timesheet_for_user(user):
         timesheet.insert()
         frappe.db.commit()
         frappe.msgprint(f"Work logs added to new timesheet for user {user}.")
+
+
+
+import frappe
+
+@frappe.whitelist()
+def get_task_subject(task_name):
+    task = frappe.get_all('S Task', filters={'name': task_name}, fields=['subject', 'name'])
+    if task:
+        task_data = task[0]
+        task_data['url'] = frappe.utils.get_url_to_form('S Task', task_data['name'])
+        return task_data
+    else:
+        return {}
+
+
+
+import frappe
+from frappe import _
+
+@frappe.whitelist()
+def check_permission_for_deletion(user, row):
+    roles = frappe.get_all('Has Role', filters={'parent': user}, fields=['role'])
+    role_names = [r.role for r in roles]
+    if 'System Manager' in role_names:
+        return {'has_permission': True}
+    
+    # If permission is not granted, return row data along with permission status
+    return {'has_permission': False, 'row': row}
