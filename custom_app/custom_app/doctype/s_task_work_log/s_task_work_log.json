@@ -8,17 +8,19 @@
  "engine": "InnoDB",
  "field_order": [
   "user",
-  "duration",
   "date_time",
   "start_time",
   "end_time",
+  "duration",
   "column_break_smec",
   "deleted",
   "logged_type",
-  "description"
+  "description",
+  "delete"
  ],
  "fields": [
   {
+   "columns": 2,
    "default": "__user",
    "fieldname": "user",
    "fieldtype": "Link",
@@ -28,34 +30,35 @@
    "read_only": 1
   },
   {
+   "columns": 1,
    "fieldname": "duration",
    "fieldtype": "Float",
    "in_list_view": 1,
    "label": "Duration",
-   "precision": "9",
-   "read_only_depends_on": "eval:doc.logged_type == 'Timer Generated'"
+   "precision": "2",
+   "read_only": 1
   },
   {
+   "columns": 1,
    "default": "Today",
    "fieldname": "date_time",
    "fieldtype": "Date",
    "in_list_view": 1,
-   "label": "Date",
-   "read_only_depends_on": "eval:doc.logged_type == 'Timer Generated'"
+   "label": "Date"
   },
   {
+   "columns": 1,
    "fieldname": "start_time",
    "fieldtype": "Datetime",
    "in_list_view": 1,
-   "label": "Start Time",
-   "read_only_depends_on": "eval:doc.logged_type == 'Timer Generated'"
+   "label": "Start Time"
   },
   {
+   "columns": 1,
    "fieldname": "end_time",
    "fieldtype": "Datetime",
    "in_list_view": 1,
-   "label": "End Time",
-   "read_only_depends_on": "eval:doc.logged_type == 'Timer Generated'"
+   "label": "End Time"
   },
   {
    "fieldname": "column_break_smec",
@@ -65,26 +68,36 @@
    "default": "0",
    "fieldname": "deleted",
    "fieldtype": "Check",
-   "in_list_view": 1,
-   "label": "Deleted"
+   "label": "Deleted",
+   "read_only": 1
   },
   {
    "default": "Mannual Entered",
    "fieldname": "logged_type",
    "fieldtype": "Select",
    "label": "Logged Type",
-   "options": "Timer Generated\nTimer Generated Edited\nMannual Entered"
+   "options": "Timer Generated\nTimer Generated Edited\nMannual Entered",
+   "read_only": 1
   },
   {
+   "columns": 2,
    "fieldname": "description",
    "fieldtype": "Small Text",
+   "in_standard_filter": 1,
    "label": "Description"
+  },
+  {
+   "columns": 1,
+   "fieldname": "delete",
+   "fieldtype": "Button",
+   "in_list_view": 1,
+   "label": "Delete"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-07-26 15:43:03.208055",
+ "modified": "2024-07-30 16:23:40.420652",
  "modified_by": "Administrator",
  "module": "custom_app",
  "name": "S Task Work Log",
