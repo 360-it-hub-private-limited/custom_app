@@ -653,8 +653,8 @@ import frappe
 from frappe.utils import nowdate
 
 @frappe.whitelist()
-def add_work_logs_to_timesheet_for_user(user):
-    today = nowdate()
+def add_work_logs_to_timesheet_for_user(user,date):
+    today = date
     
     # Fetch employee ID based on the user
     employee_id = frappe.get_value('Employee', {'user_id': user}, 'name')
@@ -681,8 +681,8 @@ def add_work_logs_to_timesheet_for_user(user):
     for task in tasks:
         task_work_logs = frappe.get_all(
             'S Task Work Log',
-            filters={'parent': task['name'],'date_time':today,'deleted':0,'user':user},
-            fields=['start_time', 'end_time', 'duration', 'description']
+            filters={'parent': task['name'], 'date_time': today, 'deleted': 0, 'user': user},
+            fields=['start_time', 'end_time', 'duration', 'description', 'name']
         )
         
         for log in task_work_logs:
@@ -694,10 +694,12 @@ def add_work_logs_to_timesheet_for_user(user):
                     'task_id': task_id,
                     'project_name': project_name,
                     'duration': 0,
-                    'description': ''
+                    'description': '',
+                    'work_log_ids': []
                 }
             
             work_logs[(task_id, project_name)]['duration'] += log['duration']
+            work_logs[(task_id, project_name)]['work_log_ids'].append(log['name'])
             
             # Append description if it's not empty and avoid duplicates
             if log['description']:
@@ -715,7 +717,7 @@ def add_work_logs_to_timesheet_for_user(user):
     # Check if a timesheet for today already exists
     existing_timesheet = frappe.get_all(
         'S Timesheet',
-        filters={'employee': employee_id, 'date': today},
+        filters={'employee': employee_id, 'date': today,'docstatus':0},
         fields=['name']
     )
     
@@ -741,6 +743,13 @@ def add_work_logs_to_timesheet_for_user(user):
                             time_log.description = log['description']
                     # Ensure from_work_log is set to 1
                     time_log.from_work_log = 1
+                    # Append work log IDs
+                    if time_log.work_log_id:
+                        existing_work_log_ids = time_log.work_log_id.split(',')
+                        updated_work_log_ids = set(existing_work_log_ids + log['work_log_ids'])
+                        time_log.work_log_id = ','.join(updated_work_log_ids)
+                    else:
+                        time_log.work_log_id = ','.join(log['work_log_ids'])
                     log_exists = True
                     break
             
@@ -751,7 +760,8 @@ def add_work_logs_to_timesheet_for_user(user):
                     'task': log['task_id'],
                     'project': log['project_name'],
                     'description': log['description'],
-                    'from_work_log': 1
+                    'from_work_log': 1,
+                    'work_log_id': ','.join(log['work_log_ids'])  # Join work_log_ids into a comma-separated string
                 })
         
         # Save the updated timesheet
@@ -785,7 +795,8 @@ def add_work_logs_to_timesheet_for_user(user):
                     'task': log['task_id'],
                     'project': log['project_name'],
                     'description': log['description'],
-                    'from_work_log': 1
+                    'from_work_log': 1,
+                    'work_log_id': ','.join(log['work_log_ids'])  # Join work_log_ids into a comma-separated string
                 })
             else:
                 frappe.msgprint(f"Invalid project or task for log: {log}")

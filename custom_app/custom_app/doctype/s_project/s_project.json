@@ -10,6 +10,7 @@
  "engine": "InnoDB",
  "field_order": [
   "section_break_qnqv",
+  "timer_html",
   "task_count",
   "pending_task",
   "close_task",
@@ -568,13 +569,19 @@
    "fieldname": "project_user_role_tab",
    "fieldtype": "Tab Break",
    "label": "Project User Role"
+  },
+  {
+   "fieldname": "timer_html",
+   "fieldtype": "HTML",
+   "label": "Timer HTML",
+   "options": "\n<div id=\"timer-container\">\n    <div id=\"timer-display\">Timer Not Started</div>\n    <button id=\"start-timer-btn\" class=\"btn btn-primary\">Start Timer</button>\n    <button id=\"stop-timer-btn\" class=\"btn btn-danger\" style=\"display:none;\">Stop Timer</button>\n</div>\n"
   }
  ],
  "icon": "fa fa-puzzle-piece",
  "index_web_pages_for_search": 1,
  "links": [],
  "max_attachments": 4,
- "modified": "2024-07-16 14:54:27.862083",
+ "modified": "2024-07-31 12:47:47.625249",
  "modified_by": "Administrator",
  "module": "custom_app",
  "name": "S Project",
