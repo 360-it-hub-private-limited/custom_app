@@ -298,7 +298,8 @@ class STask(NestedSet):
 			throw(_("Child Task exists for this Task. You can not delete this Task."))
 
 		# self.update_nsm_model()
-
+	# def after_save(self):
+	# 	self.check_work_log = 1
 	def after_delete(self):
 		self.update_project()
 
