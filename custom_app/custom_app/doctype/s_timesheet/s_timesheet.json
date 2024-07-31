@@ -198,6 +198,7 @@
    "fieldtype": "Table",
    "label": "Time Sheets",
    "options": "S Timesheet Detail",
+   "read_only": 1,
    "reqd": 1
   },
   {
@@ -327,7 +328,7 @@
  "icon": "fa fa-clock-o",
  "is_submittable": 1,
  "links": [],
- "modified": "2024-02-01 10:45:40.184679",
+ "modified": "2024-07-31 11:24:59.012150",
  "modified_by": "Administrator",
  "module": "custom_app",
  "name": "S Timesheet",
