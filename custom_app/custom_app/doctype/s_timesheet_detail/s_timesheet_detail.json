@@ -17,6 +17,7 @@
   "end_time",
   "hours",
   "from_work_log",
+  "work_log_id",
   "project_details",
   "project_name",
   "column_break_2",
@@ -264,11 +265,17 @@
   {
    "fieldname": "column_break_tpnw",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "work_log_id",
+   "fieldtype": "Small Text",
+   "label": "Work Log Id",
+   "read_only": 1
   }
  ],
  "istable": 1,
  "links": [],
- "modified": "2024-07-30 16:42:54.350476",
+ "modified": "2024-07-31 10:42:01.492298",
  "modified_by": "Administrator",
  "module": "custom_app",
  "name": "S Timesheet Detail",

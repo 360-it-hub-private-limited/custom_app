@@ -298,7 +298,8 @@ class STask(NestedSet):
 			throw(_("Child Task exists for this Task. You can not delete this Task."))
 
 		# self.update_nsm_model()
-
+	# def after_save(self):
+	# 	self.check_work_log = 1
 	def after_delete(self):
 		self.update_project()
 
@@ -312,12 +313,13 @@ class STask(NestedSet):
 
 
 	def before_save(doc):
-
 		# Check if the user has the System Manager role
 		user_roles = frappe.get_roles(frappe.session.user)
+    
 		if doc.check_work_log != 0:
 			# Check if the user has the System Manager role
 			if 'System Manager' not in user_roles:
+				
 				if doc.get('name'):
 					try:
 						# Fetch the existing document from the database
@@ -330,7 +332,8 @@ class STask(NestedSet):
 
 					# Get the current child records in the document being saved
 					current_child_records = {row.name: row for row in doc.get('work_log_table', [])}
-
+					print('current_child_records', current_child_records)
+					
 					# Determine which records have been deleted
 					deleted_records = {row_id: row for row_id, row in existing_child_records.items() if row_id not in current_child_records}
 
@@ -340,15 +343,15 @@ class STask(NestedSet):
 						
 						# Restore missing rows
 						for row_id, row in deleted_records.items():
-							# Re-add the deleted rows to the document
-							doc.append('work_log_table', row)
+							# Check if the row's logged_type is not 'manual enter'
+							if row.get('logged_type') != 'Mannual Entered':
+								# Re-add the deleted rows to the document
+								doc.append('work_log_table', row)
 
 						# Optional: Clear the cache after restoration
 						frappe.cache().hdel('deleted_records', doc.name)
 		
-		# for row in doc.get('work_log_table'):
-		# 	# if row.get_docstatus() == 2:  # 2 indicates deleted rows
-		# 	frappe.throw("Deleting rows is not allowed.")
+		
 		if doc.task_status=="Assigned" and doc.users is None:
 			frappe.throw(f"Task has to be assigned to a person before moving forward to task status {doc.task_status}")
 

@@ -141,24 +141,52 @@ class STimesheet(Document):
 		self.set_status()
 
 	def on_cancel(self):
+		# Iterate over each time log in the time_logs child table
+		for time_log in self.time_logs:
+			if time_log.work_log_id:
+				# Split the comma-separated work_log_ids
+				work_log_ids = time_log.work_log_id.split(',')
+				
+				for work_log_id in work_log_ids:
+					if work_log_id:
+						# Update the corresponding S Task Work Log record
+						frappe.db.set_value('S Task Work Log', work_log_id, 'submitted', 0)
+		
+		# Optionally commit the transaction if not auto-committed
+		frappe.db.commit()
 		self.update_task_and_project()
 
 	def on_submit(self):
 		if self.total_hours > 16:
 			frappe.throw('Total Working Hours cannot be greater then 24')
+
+		# Iterate over each time log in the time_logs child table
+		for time_log in self.time_logs:
+			if time_log.work_log_id:
+				# Split the comma-separated work_log_ids
+				work_log_ids = time_log.work_log_id.split(',')
+				
+				for work_log_id in work_log_ids:
+					if work_log_id:
+						# Update the corresponding S Task Work Log record
+						frappe.db.set_value('S Task Work Log', work_log_id, 'submitted', 1)
+		
+		# Optionally commit the transaction if not auto-committed
+		frappe.db.commit()
 		self.validate_mandatory_fields()
 		self.update_task_and_project()
 
 	def validate_mandatory_fields(self):
-		for data in self.time_logs:
-			if not data.from_time and not data.to_time:
-				frappe.throw(_("Row {0}: From Time and To Time is mandatory.").format(data.idx))
+		pass
+		# for data in self.time_logs:
+			# if not data.from_time and not data.to_time:
+			# 	frappe.throw(_("Row {0}: From Time and To Time is mandatory.").format(data.idx))
 
-			if not data.activity_type and self.employee:
-				frappe.throw(_("Row {0}: Activity Type is mandatory.").format(data.idx))
+			# if not data.activity_type and self.employee:
+			# 	frappe.throw(_("Row {0}: Activity Type is mandatory.").format(data.idx))
 
-			if flt(data.hours) == 0.0:
-				frappe.throw(_("Row {0}: Hours value must be greater than zero.").format(data.idx))
+			# if flt(data.hours) == 0.0:
+			# 	frappe.throw(_("Row {0}: Hours value must be greater than zero.").format(data.idx))
 
 	def update_task_and_project(self):
 		tasks, projects = [], []

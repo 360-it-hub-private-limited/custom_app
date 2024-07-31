@@ -711,7 +711,7 @@
   {
    "fieldname": "work_lob_section",
    "fieldtype": "Section Break",
-   "label": "Work Lob"
+   "label": "Work Log"
   },
   {
    "fieldname": "work_log_table_column",
@@ -734,7 +734,7 @@
    "fieldname": "timer_html",
    "fieldtype": "HTML",
    "label": "Timer HTML",
-   "options": "<div id=\"timer-container\">\n    <div id=\"timer-display\">Timer Not Started</div>\n    <button id=\"start-timer-btn\" class=\"btn btn-primary\">Start Timer</button>\n    <button id=\"stop-timer-btn\" class=\"btn btn-danger\" style=\"display:none;\">Stop Timer</button>\n</div>\n"
+   "options": "\n<div id=\"timer-container\">\n    <div id=\"timer-display\">Timer Not Started</div>\n    <button id=\"start-timer-btn\" class=\"btn btn-primary\">Start Timer</button>\n    <button id=\"stop-timer-btn\" class=\"btn btn-danger\" style=\"display:none;\">Stop Timer</button>\n</div>\n"
   },
   {
    "fieldname": "section_break_suna",
@@ -744,26 +744,27 @@
    "fieldname": "timer_html_1",
    "fieldtype": "HTML",
    "label": "Timer HTML 1",
-   "options": "<div id=\"timer-container\">\n    <div id=\"timer-display\">Timer Not Started</div>\n    <button id=\"start-timer-btn\" class=\"btn btn-primary\">Start Timer</button>\n    <button id=\"stop-timer-btn\" class=\"btn btn-danger\" style=\"display:none;\">Stop Timer</button>\n</div>\n"
+   "options": "\n<div id=\"timer-container\">\n    <div id=\"timer-display\">Timer Not Started</div>\n    <button id=\"start-timer-btn\" class=\"btn btn-primary\">Start Timer</button>\n    <button id=\"stop-timer-btn\" class=\"btn btn-danger\" style=\"display:none;\">Stop Timer</button>\n</div>\n"
   },
   {
    "fieldname": "timer_html_2",
    "fieldtype": "HTML",
    "label": "Timer HTML 2",
-   "options": "<div id=\"timer-container\">\n    <div id=\"timer-display\">Timer Not Started</div>\n    <button id=\"start-timer-btn\" class=\"btn btn-primary\">Start Timer</button>\n    <button id=\"stop-timer-btn\" class=\"btn btn-danger\" style=\"display:none;\">Stop Timer</button>\n</div>\n"
+   "options": "\n<div id=\"timer-container\">\n    <div id=\"timer-display\">Timer Not Started</div>\n    <button id=\"start-timer-btn\" class=\"btn btn-primary\">Start Timer</button>\n    <button id=\"stop-timer-btn\" class=\"btn btn-danger\" style=\"display:none;\">Stop Timer</button>\n</div>\n"
   },
   {
    "default": "0",
    "fieldname": "check_work_log",
    "fieldtype": "Check",
    "hidden": 1,
-   "label": "check work log"
+   "label": "check work log",
+   "read_only": 1
   }
  ],
  "icon": "fa fa-check",
  "links": [],
  "max_attachments": 5,
- "modified": "2024-07-30 17:39:04.675299",
+ "modified": "2024-07-31 16:42:12.594928",
  "modified_by": "Administrator",
  "module": "custom_app",
  "name": "S Task",
