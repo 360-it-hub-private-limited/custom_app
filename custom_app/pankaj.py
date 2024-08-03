@@ -501,6 +501,7 @@ def update_work_log_entry(work_log_entry_id, end_time, duration, description):
 
 
 
+
 # import frappe
 # from frappe.utils import nowdate
 
@@ -647,8 +648,14 @@ def update_work_log_entry(work_log_entry_id, end_time, duration, description):
 #         frappe.msgprint(f"Work logs added to new timesheet for user {user}.")
 
 
+
+
+
+import frappe
+from frappe.utils import nowdate
+
 @frappe.whitelist()
-def add_work_logs_to_timesheet_for_user(user, date):
+def add_work_logs_to_timesheet_for_user(user,date):
     today = date
     
     # Fetch employee ID based on the user
@@ -661,6 +668,7 @@ def add_work_logs_to_timesheet_for_user(user, date):
     # Fetch tasks assigned to the user
     tasks = frappe.get_all(
         'S Task',
+        filters={'users': ['like', f'%{user}%']},
         fields=['name', 'project']
     )
     
@@ -708,24 +716,10 @@ def add_work_logs_to_timesheet_for_user(user, date):
         frappe.msgprint(f"No work logs found for tasks assigned to user {user}.")
         return
     
-    # Check if a submitted timesheet for today already exists
-    submitted_timesheet = frappe.get_all(
-        'S Timesheet',
-        filters={'employee': employee_id, 'date': today, 'docstatus': 1},
-        fields=['name']
-    )
-    
-    if submitted_timesheet:
-        submitted_timesheet_id = submitted_timesheet[0]['name']
-        frappe.throw(
-            f"Submitted timesheet already exists for user {user} on {today}. "
-            f"<a href='/app/s-timesheet/{submitted_timesheet_id}' target='_blank'>View Timesheet</a>"
-        )
-    
-    # Check if a draft timesheet for today already exists
+    # Check if a timesheet for today already exists
     existing_timesheet = frappe.get_all(
         'S Timesheet',
-        filters={'employee': employee_id, 'date': today, 'docstatus': 0},
+        filters={'employee': employee_id, 'date': today,'docstatus':0},
         fields=['name']
     )
     
